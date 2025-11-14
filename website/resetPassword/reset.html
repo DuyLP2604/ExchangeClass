@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel = "stylesheet" href = "../resetPassword/reset.css">
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div class =  "reset">
+        <i class="fa-solid fa-square-xmark closeMenu" id = "closeMenu"></i>
+        <h2>Reset Password</h2>
+        <form id = "form">
+            <h3>Verify account</h3>
+            <div class = "reset_row">
+                <i class="fa-solid fa-user-tie user_avatar"></i>
+                <input type = "text" placeholder="username" id = "userNameInput" required>
+            </div>
+            <div class = "reset_row">
+                <i class="fa-solid fa-lock icon" id = "resetPassword"></i>
+                <input type = "password" id = "oldInput" class = "password_input" required>
+                <i class="fa-solid fa-eye toggle1 togglePassword"></i>
+                <i class="fa-solid fa-eye-slash toggle1 togglePassword hidden"></i>
+
+                <button id = "checkPassword" type = "button">Check</button>
+            </div>
+
+            <p id = "authentication"></p>
+            
+            <h3>Enter new Password</h3>
+            <p id = "password_required">Password must contain 8-32 characters, include uppercase and lowercase letters, numbers and special characters.</p>
+            <div class = "reset_row">
+                <i class="fa-solid fa-lock icon" id = "newPassword"></i>
+                <input type = "password" id = "newInput" class = "password_input" required disabled>
+                <i class="fa-solid fa-eye toggle2 togglePassword"></i>
+                <i class="fa-solid fa-eye-slash toggle2 togglePassword hidden"></i>
+            </div>
+            <p id = "password_typo"></p>
+            <div class = "reset_row">
+                <i class="fa-solid fa-key icon" id = "confirmNewPassword"></i>
+                <input type = "password" id = "confirmNewInput" class = "password_input" required disabled>
+                <i class="fa-solid fa-eye toggle2 togglePassword"></i>
+                <i class="fa-solid fa-eye-slash toggle2 togglePassword hidden"></i>
+            </div>
+            <p id = "password_error"></p>
+            <button id = "submit" type = "submit">Change Password</button>
+        </form>
+    </div>
+    <script type = "module" src = "reset.js"></script>
+</body>
+</html>

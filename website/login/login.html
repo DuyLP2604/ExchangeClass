@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel = "stylesheet" href = "login.css">
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div id = "progress_bar"></div>
+    <div id = "annoucementBox"></div>
+    <div id = "serverStatus">Waking up server</div>
+    <div class = "login_form">
+        <h2> Login to Exchange Student Webpage</h2>
+        <form>
+            <div class = "login_row">
+                <i class="fa-solid fa-user-tie user_avatar"></i>
+                <input type = "text" id = "username" required>
+            </div>
+            
+            <div class = "login_row">
+                <i class="fa-solid fa-key password"></i>
+                <i class="fa-solid fa-eye" id = "openPass"></i>
+                <i class="fa-solid fa-eye-slash" id = "closePass"></i>
+                <input type = "password" id = "password_type" required>
+            </div>
+
+            <div class = "login_row2">
+                <div class = "login_col">
+                    <input type = checkbox>
+                    <label> Remember me? </label>
+                </div>
+
+                <div class = "login_col">
+                    <a href = "forgot.html">Forgot password</a>
+                </div>
+            </div>
+            <button type = "submit">Login</button>
+            <div class = "login_row">
+                <a href = "../register/register.html" id = "register">Don't have account? Register</a>
+            </div>
+        </form>
+    </div>
+    <script type="module" src = "login.js"></script>
+</body>
+</html>

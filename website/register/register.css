@@ -1,0 +1,304 @@
+body{
+    background-color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    height: 100vh;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+#serverStatus{
+  position: absolute;
+  z-index: 5;
+  left: 43%;
+  top:15px;
+  font-size: 17px;
+  font-weight: 600;
+  width: 200px;
+  text-align: center;
+  padding: 8px 15px;
+  transition: all 0.4s ease;
+  color: white;
+}
+
+.loading {
+  background: linear-gradient(135deg, #ff9900, #ffcc33);
+  box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+}
+
+.ready {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
+}
+
+.loading::after{
+  content: "";
+  animation: dot 1s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ""; }
+  25% { content: "."; }
+  50% { content: ".."; }
+  75% { content: "..."; }
+  100% { content: "...."; }
+}
+
+.ready::after{
+  content: "";
+  animation: none;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+}
+
+.register_form{
+    background-color: rgba(255,255,255);
+    padding: 20px 30px;
+    border-radius: 10px;
+}
+
+.register_form h2{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    text-align: center;
+}
+
+h3{
+    font-size: 22px;
+    margin: 10px 0px 10px 20px;
+}
+
+.section{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+}
+
+.register_row{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.register_row1{
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+.register_col{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input1{
+    padding: 3px 5px 3px 30px;
+    margin-left:20px;
+    margin-bottom: 15px;
+    margin-right: 20px;
+    border-radius: 5px;
+    height:25px;
+    width:100%;
+    font-weight: bold;
+}
+
+
+.input2{
+    padding: 3px 5px 3px 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+    height:25px;
+    font-weight: bold;
+    width: 92%;
+}
+
+.input3{
+    padding: 3px 5px 3px 40px;
+    border-radius: 5px;
+    height:25px;
+    font-weight: bold;
+    margin:5px 20px 5px 20px;
+    width:91%;
+}
+
+#classCode{
+    margin-bottom: 10px;
+}
+#classCodeIcon{
+    top:14px;
+}
+.user_avatar,.password,.user_id,.confirm,.icon,.user_code{
+    position: absolute;
+}
+
+.user_avatar,.user_id,.user_code{
+    top:8px;
+    left:25px;
+}
+.password,.confirm{
+    left:25px;
+}
+
+.icon{
+    left:30px;
+}
+
+#ZaloIcon{
+    width:24px;
+    height:24px;
+    left:27px;
+}
+#password_required{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#Password_Error{
+    margin-left:20px;
+    font-size:19px;
+}
+
+#password_typo{
+    margin-left:20px;
+    font-size:19px;
+}
+
+input[type="checkbox"]{
+    transform: scale(1.5);
+    accent-color: aqua;
+}
+
+#confirm_all{
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+#Submit{
+    width:100%;
+    margin-top: 10px;
+    height:40px;
+    font-size: 19px;
+    border-radius: 5px;
+    color:black;
+    background-color: white;
+}
+
+.openPass,.closePass{
+    position: absolute;
+    right:30px;
+    cursor: pointer;
+}
+
+#openPass1,#openPass2{
+    display: block;
+}
+
+#closePass1,#closePass2{
+    display: none;
+}
+#progress_bar{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 3px;
+    background-image: linear-gradient(to right,  rgb(0, 247, 255), rgb(1, 31, 255));
+    z-index: 9999;
+    transition: all 0.3s ease;
+    width: 0%;
+}
+@media (max-width :775px){
+    #serverStatus{
+        left: 0;
+        width: 100%;
+        top:0px;
+    }
+    .register_form{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .register_row1{
+       flex-wrap: wrap;
+    }
+
+    .register_row1 .register_col{
+        width: 50%;
+    }
+    .register_row1 .register_col:last-child{
+        width: 100%;
+    }
+
+    .register_row1 .register_col:last-child .input1 {
+        width: calc(100% - 20px); /* trừ margin cho đẹp */
+        margin-left: 10px;
+        margin-right: 10px;
+    } 
+    .input1{
+        padding: 3px 5px 3px 30px;
+        margin-left:10px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        height:25px;
+        width:160px;
+        font-weight: bold;
+    }
+
+    .input2{
+        padding: 3px 5px 3px 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+        height:25px;
+        font-weight: bold;
+        width: 378px;
+    }
+
+    .input3{
+        padding: 3px 5px 3px 35px;
+        margin-left: 10px;
+        border-radius: 5px;
+        height:25px;
+        font-weight: bold;
+        margin:5px 0px 5px 10px;
+        width:373px;
+    }
+
+    #password_required{
+    margin-left: 10px;
+    }
+
+    .user_avatar,.user_id,.user_code{
+        top:8px;
+        left:15px;
+    }
+
+    .password,.confirm{
+        left:15px;
+    }
+
+    .icon{
+        left:20px;
+    }
+
+    #ZaloIcon{
+        width:24px;
+        height:24px;
+        left:17px;
+    }
+
+    .openPass,.closePass{
+        right:20px;
+    }
+
+}

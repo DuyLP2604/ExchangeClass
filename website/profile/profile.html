@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel = "stylesheet" href = "profile.css">
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div id = "header">
+        <div id = "greeting">
+            <h2 id = "member_welcome">LOADING...</h2>
+            <p id = "date"></p>
+        </div>
+        <a href="../home/home.html"><button id = "back_to_home">Return back to Home</button></a>
+        
+    </div>
+    <div id = "progress_bar"></div>
+    <div id = "main">
+        <div id = "welcome_banner"></div>
+        <div id = "user">
+            <div id = "user_avatar">
+                <div id = "user_avatar_container">
+                    <div class = "user_ring">
+                        <i class="fa-solid fa-user-tie avatar"></i>
+                    </div>
+                </div>
+                
+                <div id = "user_info">
+                    <p id="user_id">ID: Loading...</p>
+                    <h2 id="username" class = "username"></h2>
+                    <a href="../login/login.html">
+                        <button id="login_required">Session failed. Please log in again.</button>
+                    </a>
+                </div>
+            </div>
+
+            <button type = "button" id = "edit" class = "edit"><i class="fa-solid fa-hammer"></i>Edit</button>
+        </div>
+
+        <div id = "information">
+            <div class = "information_row">
+                <div class = "information_data">
+                    <p>Account name</p>
+                    <input type = "text" id = "accountNameInput" disabled>
+                </div>
+
+                <div class = "information_data">
+                    <p>Student code</p>
+                    <input type = "text" id = "studentCodeInput" disabled>
+                </div>
+            </div>
+
+            <div class ="information_row">
+                <div class = "information_data">
+                    <p>My current class</p>
+                    <input type = "text" id = "currentClassInput" disabled>
+                </div>
+
+                <div class = "information_data">
+                    <a href = "../resetPassword/reset.html"><button type = "text" id = "resetPasswordButton">Reset my password</button></a>
+                </div>
+            </div>
+            <div class="information_row">
+                <h2>Current class request</h2>
+                <div id = "information_delete_request_container">
+                    <button id = "deleteRequest">Delete request</button>
+                    <div id = "information_delete_request_confirm">
+                        <p>Delete this request?</p>
+                        <button id = "delete_cancel">Cancel</button>
+                        <button id = "delete_confirm">Confirm</button>
+                    </div>
+                </div>
+            </div>
+            <table id="results_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Code</th>
+                    <th>Current class</th>
+                    <th>Exchange to class</th>
+                    <th>Current slot</th>
+                    <th>Exchange to slot</th>
+                </tr>
+            </thead>
+            <tbody id="results_table_body">
+                </tbody>
+            </table>
+
+            <div class="information_row">
+                <h2>Current slot request</h2>
+                <div id = "information_delete_slot_request_container">
+                    <button id = "deleteSlotRequest">Delete request</button>
+                    <div id = "information_delete_slot_request_confirm">
+                        <p>Delete this request?</p>
+                        <button id = "delete_slot_cancel">Cancel</button>
+                        <button id = "delete_slot_confirm">Confirm</button>
+                    </div>
+                </div>
+            </div>
+            <table id="results_table_slot">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Code</th>
+                    <th>Current class</th>
+                    <th>Current slot</th>
+                    <th>Exchange to slot</th>
+                </tr>
+            </thead>
+            <tbody id="results_table_slot_body">
+                </tbody>
+            </table>
+
+            <div id = "information_button">
+                <button id = "edit_confirm"><i class="fa-solid fa-hammer"></i>Confirm Editing</button>
+                <button id = "edit_cancel"><i class="fa-solid fa-xmark"></i>Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src = "profile.js" type = "module"></script>
+</body>
+</html>

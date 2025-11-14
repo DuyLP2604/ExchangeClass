@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "home.css">
+    <title>Home</title>
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div id = "progress_bar"></div>
+    <div id = "annoucementBox"></div>
+    <div id = "serverStatus"></div>
+    <div id = "member">
+        <div class = "member_col">
+            <p id = "member_welcome">Welcome</p>
+        </div>
+        <div class = "member_col">
+            <button type = "button" id = "addClassAndSlot">Add Slot and Class</button>
+            <div class = "user_menu">
+                <div id = user_avatar_container>
+                    <div id = "user_ring">
+                        <i class="fa-solid fa-user avatar" id = "dropdownAvatar"></i>
+                    </div>
+                </div>
+                <div class = "dropdown" id = "dropdownMenu">
+                    <a href = "../profile/profile.html" id = "profile">Profile</a>
+                    <a href = "../login/login.html">Login</a>
+                    <a href = "../register/register.html">Register</a>
+                    <button type = "button" id = "logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id = "Welcome">
+        <h1>Student exchange searching site</h1>
+        <h3>A webpage for students to easily looking for their exchanging class and find students who want to exchange class with them</h3>
+    </div>
+
+    <div id = "toggleMode">
+        <div id = "classMode" class = "active">Exchange Requests for Classes</div>
+        <div id = "slotMode">Exchange Requests for Slots</div>
+    </div>
+    <div id = "addMenu" class = "addBackground">
+        <div class = "addStudent">
+            <i class="fa-solid fa-square-xmark closeMenu" id = "closeMenu"></i>
+            <h2>Enter Information for Exchanging</h2>
+            <form id = "requestAdd">
+                <div class = "Menu_row">
+                    <div class = "Menu_col">
+                        <label for = "usermame">Username</label>
+                        <input id = "username" type = "text" disabled>
+                    </div>
+
+                    <div class = "Menu_col">
+                        <label for = "id">Student Code</label>
+                        <input id = "id" type = "text" disabled>
+                    </div>
+                </div>
+                <div class = "Menu_row">
+                    <div class = "Menu_col">
+                        <label for = "Menu_current_class">Current class</label>
+                        <input type = "text" id = "Menu_current_class" disabled>
+                    </div>
+
+                    <div class = "Menu_col">
+                        <label for = "Menu_exchanging_class">Exchange to</label>
+                        <input type = "text" id = "Menu_exchanging_class">
+                    </div>
+                </div>
+                <div class = "Menu_row">
+                    <p id = "confirm"><i class="fa-regular fa-lightbulb"></i>You may change your personal information in Profile.</p>
+                </div>
+                <button id = "Menu_submit" type = "submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="results_container">
+        <div id = "results_table_header">
+            <h2 style="font-size: 30px; margin: 0px 0px 0px 15px;">Exchange Requests for Class</h2>
+            <button id = "Search" type = "submit"><i class="fa-solid fa-arrows-rotate"></i></button>
+            <button id = "Add" type = "button"><i class="fa-solid fa-user-plus"></i></button>
+        </div>
+        <div id = "mobile_filter">
+
+            <i class="fa-solid fa-arrow-right"></i>
+            
+            <input id = "Exchange_Mobile" type = "text" placeholder="Exchange to">
+        </div>
+        <table id="results_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Code</th>
+                    <th><div id = "currentLabel">Current Class</div></th>
+                    <th>Exchange To <input type = "text" id = "Exchange"> <i class="fa-solid fa-filter"></i></th>
+                    <th>Contact Info(Gmail)</th>
+                </tr>
+            </thead>
+            <tbody id="results_table_body">
+                </tbody>
+        </table>
+        <div id="pagination_controls">
+            <button id="prev_page_btn">Previous</button>
+            <span id="page_info">Page 1</span>
+            <button id="next_page_btn">Next</button>
+        </div>
+    </div>
+    <script type = "module" src = "home.js"></script>
+</body>
+</html>

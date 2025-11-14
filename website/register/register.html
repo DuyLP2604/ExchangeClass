@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel = "stylesheet" href = "register.css">
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div id="progress_bar"></div>
+    <div id = "annoucementBox"></div>
+    <div id = "serverStatus">Waking up server</div>
+    <div class = "register_form">
+        <h2>Register to Exchange Student</h2>
+        <form id = "form">
+            <div class = "section">
+                <h3>Personal Information</h3>
+                <div class = "register_row1">
+                    <div class = "register_col">
+                        <i class="fa-solid fa-id-card user_id"></i>
+                        <input type = "text" pattern="^[A-Z]{2}[0-9]{6}$" placeholder="E.g: CE201265" class = "input1" id = "studentCode" required>
+                    </div>
+
+                    <div class = "register_col">
+                        <i class="fa-solid fa-file-invoice user_code"></i>
+                        <input type = "text" placeholder="Account Name" required class = "input1" id = "accountName">
+                    </div>
+
+                    <div class = "register_col">
+                        <i class="fa-solid fa-user-tie user_avatar"></i>
+                        <input type = "text" placeholder="Username" required class = "input1" id = "userName">
+                    </div>
+                </div>
+                
+                <div class = "register_row password-group">
+                    <i class="fa-solid fa-key password"></i>
+                    <i class="fa-solid fa-eye openPass" id = "openPass1"></i>
+                    <i class="fa-solid fa-eye-slash closePass" id = "closePass1"></i>
+                    <input type = "password" id = "password1" placeholder="Password" class = "input2" required>
+                </div>
+                <p id = "password_typo"></p>
+                <p id = "password_required">Password must contain 8-32 characters, include uppercase and lowercase letters, numbers and special characters.</p>
+                
+                <div class = "register_row password-group">
+                    <i class="fa-solid fa-check-double confirm"></i>
+                    <i class="fa-solid fa-eye openPass" id = "openPass2"></i>
+                    <i class="fa-solid fa-eye-slash closePass" id = "closePass2"></i>
+                    <input type = "password" id = "password2" placeholder="Confirm password" class = "input2" required>
+                </div>
+                <p id = "Password_Error"></p>
+            </div>
+
+            <div class = "section">
+                <h3>Contact Information</h3>
+                <div class = "register_row">
+                    <img src = "../../Image/icons8-zalo-48.png" id = "ZaloIcon" class = "icon">
+                    <input type = "tel" class = "input3" id = "Zalo" pattern="^0[0-9]{9}$" placeholder="0xxxxxxxxx" required>
+                </div>
+                
+                <div class = "register_row">
+                    <i class="fa-solid fa-chalkboard-user icon" id = "classCodeIcon"></i>
+                    <input type = "text" class = "input3" id = "classCode" placeholder="Class Code (E.g: SE2003)" required>
+                </div>
+            </div>
+             <div class = "register_row">
+                <input type = "checkbox" required>
+                <label id = "confirm_all">Please confirm that these information is correct</label>
+             </div>
+
+             <button type = "submit" id = "Submit">Register</button>
+        </form>
+    </div>
+    <script type = "module" src = "register.js"></script>
+</body>
+</html>
