@@ -44,9 +44,9 @@ body {
   animation: pulse 2s infinite;
 }
 @keyframes pulse {
-  0% { opacity: 0.8; }
+  0% { opacity: 0.6; }
   50% { opacity: 1; }
-  100% { opacity: 0.8; }
+  100% { opacity: 0.6; }
 }
 .ready {
   background: linear-gradient(135deg, #2ecc71, #27ae60);
