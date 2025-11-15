@@ -72,7 +72,7 @@ async function getClassRequest(studentCode) {
         }
         else if(res.status == 404){
             tableBody.innerHTML = window.innerWidth < 775 ?
-                `<tr><td colspan="6" style="text-align:center; padding-left:12%; white-space: nowrap">You don't have a class request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a class request currently</td></tr>`;
+                `<tr><td colspan="6" style="text-align:center; padding-left:6%; white-space: nowrap">You don't have a class request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a class request currently</td></tr>`;
         }
         else{
             tableBody.innerHTML =
@@ -109,7 +109,7 @@ async function getSlotRequest(studentCode) {
         }
         else if(res.status == 404){
             tableSlotBody.innerHTML = window.innerWidth < 775 ?
-                `<tr><td colspan="5" style="text-align:center; padding-left:12%; white-space: nowrap">You don't have a slot request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a slot request currently</td></tr>`
+                `<tr><td colspan="5" style="text-align:center; padding-left:8%; white-space: nowrap">You don't have a slot request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a slot request currently</td></tr>`
         }
         else{
             tableSlotBody.innerHTML =

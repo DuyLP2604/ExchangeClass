@@ -70,7 +70,7 @@ window.onload = async() => {
     token = localStorage.getItem("accessToken");
   }
   tableBody.innerHTML = window.innerWidth < 775?
-      '<tr><td colspan="5" style="text-align:center; padding-left:25%; white-space: nowrap">Type in class to find request.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Type in class to find request</td></tr>';
+      '<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">Type in class to find request.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Type in class to find request</td></tr>';
   if(!token){
     member_welcome.textContent = "Welcome, please log in first!";
     unloadProfile();
