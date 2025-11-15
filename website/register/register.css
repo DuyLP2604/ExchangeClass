@@ -33,9 +33,9 @@ body{
   animation: pulse 2s infinite;
 }
 @keyframes pulse {
-  0% { opacity: 0.6; }
+  0% { opacity: 0.8; }
   50% { opacity: 1; }
-  100% { opacity: 0.6; }
+  100% { opacity: 0.8; }
 }
 
 .ready {
@@ -45,7 +45,7 @@ body{
 
 .loading::after{
   content: "";
-  animation: dots 1s steps(4, end) infinite;
+  animation: dots 2s steps(4, end) infinite;
 }
 
 @keyframes dots {
