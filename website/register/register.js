@@ -8,7 +8,7 @@ const closeBtn1 = document.getElementById("closePass1");
 const password1 = document.getElementById("password1");
 
 window.onload = async () => {
-    wakeupServer();
+    await wakeupServer();
 }
 
 openBtn1.addEventListener("click", () => {
@@ -104,7 +104,7 @@ async function register() {
         }
     } catch (err) {
         console.error("Error:", err);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
     }
 }
 

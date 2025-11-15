@@ -22,10 +22,18 @@ body{
   transition: all 0.4s ease;
   color: white;
 }
-
+.checking{
+  background: linear-gradient(90deg, #1e90ff, #8a2be2);
+}
 .loading {
   background: linear-gradient(135deg, #ff9900, #ffcc33);
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
 }
 
 .ready {
@@ -35,7 +43,7 @@ body{
 
 .loading::after{
   content: "";
-  animation: dot 1s steps(4, end) infinite;
+  animation: dots 1s steps(4, end) infinite;
 }
 
 @keyframes dots {
@@ -158,9 +166,20 @@ button{
 @media (max-width: 775px){
     .login_form{
         transform: scale(1);
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .login_form h2{
+        font-size: 19px;
+        margin: 15px 0px 20px 0px;
+        text-align: center;
+    }
+
+    #password_type{
+        padding-right: 40px;
     }
     #serverStatus{
-        left: 0;
+        left: -15px;
         width: 100%;
         top:0px;
     }

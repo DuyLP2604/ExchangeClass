@@ -1,6 +1,5 @@
 export function unloadProfile(){
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     localStorage.removeItem("username");
     localStorage.removeItem("id");
     localStorage.removeItem("classCode");

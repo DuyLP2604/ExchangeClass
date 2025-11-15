@@ -64,18 +64,18 @@ p{
 
 #checkPassword{
     width: 100px;
-    height:30px;
     margin-right: 15px;
     margin-left: 15px;
     border-radius: 5px;
     font-size: 15px;
-    height: 50px;
+    font-weight: 600;
 }
 
 #submit{
     width: 96%;
-    margin: 10px 10px 10px 15px;
-    height: 40px;
+    font-weight: 600;
+    margin: 0px 10px 10px 15px;
+    padding: 10px 15px;
     font-size: 20px;
     border-radius: 5px;
 }
@@ -104,16 +104,16 @@ p{
     width: 76%;
 }
 
-@media (max-width:600px){
+@media (max-width:775px){
     .password_input, #userNameInput{
-        width: 83%;
+        width: 81%;
         height: 25px;
         margin-left: 15px;
         border-radius: 5px;
         border: 2px solid black;
         padding-left: 40px;
-        font-size: 15px;
-        height: 30px;
+        font-size: 17px;
+        height: 40px;
     }
 
     .reset_row{
@@ -121,20 +121,20 @@ p{
     }
 
     #oldInput,#userNameInput{
-        width: 83%;
+        width: 80%;
     }
 
     .user_avatar{
-        top:8px;
+        top:12px;
         left:25px;
     }
 
     #resetPassword{
-        top:8px;
+        top:12px;
     }
 
     .toggle1{
-        top:8px;
+        top:12px;
         right:30px;
     }
 
@@ -147,5 +147,6 @@ p{
 
     #submit{
         width:93%;
+        margin-bottom: 25px;
     }
 }

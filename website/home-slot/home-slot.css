@@ -35,12 +35,19 @@ body {
   transition: all 0.4s ease;
   color: white;
 }
-
+.checking{
+  background: linear-gradient(90deg, #1e90ff, #8a2be2);
+}
 .loading {
   background: linear-gradient(135deg, #ff9900, #ffcc33);
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  animation: pulse 2s infinite;
 }
-
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
 .ready {
   background: linear-gradient(135deg, #2ecc71, #27ae60);
   box-shadow: 0 0 12px rgba(46, 204, 113, 0.6);
@@ -48,10 +55,10 @@ body {
 
 .loading::after{
   content: "";
-  animation: dot 1s steps(4, end) infinite;
+  animation: dots 1s steps(4, end) infinite;
 }
 
-@keyframes dots {
+@keyframes dots{
   0% { content: ""; }
   25% { content: "."; }
   50% { content: ".."; }
@@ -450,8 +457,11 @@ input[type="checkbox"] {
   display: none;
 }
 @media (max-width: 775px) {
+  body{
+    font-size: 14px;
+  }
   #serverStatus{
-    left: 0;
+    left: -20px;
     width: 100%;
     top:50px;
   }
@@ -471,7 +481,7 @@ input[type="checkbox"] {
     height: 50px;
   }
   #member p{
-    font-size: 17px;
+    font-size: 15px;
   }
   #member .avatar{
     transform: scale(0.85);
@@ -481,11 +491,12 @@ input[type="checkbox"] {
     right: 70px;
   }
   #Welcome{
-    height: 150px;
-    font-size: 16px;
+    height: auto;
+    padding-top: 30px;
+    font-size: 13px;
   }
   #Add {
-    width: 100%;
+    width: auto;
     box-sizing: border-box;
     margin-top: 0px;
     margin-left: 0px;
@@ -510,7 +521,7 @@ input[type="checkbox"] {
 
   #username,
   #Menu_current_class {
-    margin-right: 100px;
+    margin-right: 40px;
     margin-left: 20px;
     box-sizing: border-box;
     height: 30px;
@@ -533,15 +544,28 @@ input[type="checkbox"] {
 
   .addStudent #Menu_submit {
     width: 90%;
-    margin: 10px 10px 10px 25px;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 10px 30px 20px;
   }
 
   .addStudent {
-    height: 350px;
+    height: auto;
     transform: scale(1);
-    top: 150px;
+    top: 250px;
     left: 10px;
-    width: 480px;
+    width: 390px;
+  }
+
+  .addStudent h2{
+    margin: 25px 0px 10px 0px;
+  }
+
+  #closeMenu{
+    scale:0.8;
+    right: 5px;
+    top: 8px;
   }
 
   #Facebook {
@@ -641,6 +665,14 @@ input[type="checkbox"] {
     height: 28px;
     padding-left: 10px;
     width: 100%;
+  }
+
+  #classMode,#slotMode{
+    font-size: 16px;
+  }
+
+  #toggleMode .active{
+    font-size: 18px;
   }
 }
 

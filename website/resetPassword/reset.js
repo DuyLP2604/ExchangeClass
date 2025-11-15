@@ -54,7 +54,7 @@ async function check_password() {
         }
     } catch (error) {
         console.error("Reset password error:", error);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
     }
 }
 
@@ -80,7 +80,7 @@ async function reset_password() {
         }
     } catch (error) {
         console.error("Reset password error:", error);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
     }
 }
 

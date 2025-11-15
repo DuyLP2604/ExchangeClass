@@ -23,10 +23,19 @@ body{
   transition: all 0.4s ease;
   color: white;
 }
+.checking{
+  background: linear-gradient(90deg, #1e90ff, #8a2be2);
+}
 
 .loading {
   background: linear-gradient(135deg, #ff9900, #ffcc33);
   box-shadow: 0 0 12px rgba(255, 165, 0, 0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
 }
 
 .ready {
@@ -36,7 +45,7 @@ body{
 
 .loading::after{
   content: "";
-  animation: dot 1s steps(4, end) infinite;
+  animation: dots 1s steps(4, end) infinite;
 }
 
 @keyframes dots {
@@ -189,6 +198,8 @@ input[type="checkbox"]{
     height:40px;
     font-size: 19px;
     border-radius: 5px;
+    font-weight: 600;
+    background:linear-gradient(45deg,rgb(221, 221, 221), rgb(234, 234, 234), rgb(247, 247, 247));
     color:black;
     background-color: white;
 }
@@ -218,13 +229,16 @@ input[type="checkbox"]{
 }
 @media (max-width :775px){
     #serverStatus{
-        left: 0;
+        left: -15px;
         width: 100%;
         top:0px;
     }
     .register_form{
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    .register_form h2{
+        font-size: 28px;
     }
 
     .register_row1{
@@ -239,7 +253,7 @@ input[type="checkbox"]{
     }
 
     .register_row1 .register_col:last-child .input1 {
-        width: calc(100% - 20px); /* trừ margin cho đẹp */
+        width: calc(100% - 20px); 
         margin-left: 10px;
         margin-right: 10px;
     } 
@@ -250,7 +264,7 @@ input[type="checkbox"]{
         margin-bottom: 15px;
         border-radius: 5px;
         height:25px;
-        width:160px;
+        width:120px;
         font-weight: bold;
     }
 
@@ -261,7 +275,7 @@ input[type="checkbox"]{
         border-radius: 5px;
         height:25px;
         font-weight: bold;
-        width: 378px;
+        width: 300px;
     }
 
     .input3{
@@ -271,11 +285,11 @@ input[type="checkbox"]{
         height:25px;
         font-weight: bold;
         margin:5px 0px 5px 10px;
-        width:373px;
+        width:300px;
     }
 
     #password_required{
-    margin-left: 10px;
+        margin-left: 10px;
     }
 
     .user_avatar,.user_id,.user_code{

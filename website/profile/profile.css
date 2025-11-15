@@ -448,7 +448,7 @@ body{
   #user {
     top: 60px;
     left: -30px;
-    gap: 130px;
+    gap: 55px;
   }
   #welcome_banner{
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -533,7 +533,7 @@ body{
 
   .information_row input{
     width: 70%;
-    height: 30px;
+    height: 32px;
     padding-left: 10px;
   }
 
@@ -572,14 +572,14 @@ body{
     border: none;
     position: relative;
     text-align: left;
-    padding-left: 40%;
+    padding-left: 50%;
   }
 
   #results_table td::before{
     content: attr(data-label);
     position: absolute;
     left:10px;
-    width:60%;
+    width:70%;
     font-weight: bold;
   }
 
@@ -612,24 +612,25 @@ body{
     border: none;
     position: relative;
     text-align: left;
-    padding-left: 40%;
+    padding-left: 50%;
   }
 
   #results_table_slot td::before{
     content: attr(data-label);
     position: absolute;
     left:10px;
-    width:60%;
+    width:70%;
     font-weight: bold;
   }
   
   #information_button{
     gap:30px;
-    margin-right: 70px;
+    margin-right: 55px;
   }
 
   #information_button button{
     font-size: 15px;
+    gap:13px;
   }
 
   #information_delete_request_container #deleteRequest,

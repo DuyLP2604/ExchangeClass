@@ -1,5 +1,6 @@
 export const base_url = "https://exchangeslot-api-testing.onrender.com";
 export const server_url = `${base_url}/hello`;
+export const get_new_access_token_url = `${base_url}/refresh_access_token`;
 // ================ ACCOUNT ENDPOINT ======================
 export const register_api = `${base_url}/register`;
 export const login_api = `${base_url}/login`;

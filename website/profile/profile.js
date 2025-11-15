@@ -3,14 +3,15 @@ import { isTokenExpired } from "../../utils/isTokenExpired.js";
 import { getProfile } from "../../utils/getProfile.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
+import { getNewAccessToken } from "../../utils/getNewAccessToken.js";
 
-export const token = localStorage.getItem("accessToken");
+export let token = localStorage.getItem("accessToken");
 export const member_welcome = document.getElementById("member_welcome");
 export const now = new Date();
 
 const newStudentCode = document.getElementById("studentCodeInput");
 const newClassCode = document.getElementById("currentClassInput");
-
+const screenWidth = window.innerWidth;
 const deleteBtn = document.getElementById("deleteRequest");
 const deleteCancelBtn = document.getElementById("delete_cancel");
 const deleteConfirmBtn = document.getElementById("delete_confirm");
@@ -71,7 +72,7 @@ async function getClassRequest(studentCode) {
         }
         else if(res.status == 404){
             tableBody.innerHTML = window.innerWidth < 775 ?
-                `<tr><td colspan="6" style="text-align:center; padding-left:20%; white-space: nowrap">You don't have a class request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a class request currently</td></tr>`;
+                `<tr><td colspan="6" style="text-align:center; padding-left:12%; white-space: nowrap">You don't have a class request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a class request currently</td></tr>`;
         }
         else{
             tableBody.innerHTML =
@@ -79,7 +80,7 @@ async function getClassRequest(studentCode) {
         }
     }catch(error){
         console.log(error);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
     }
 }
 
@@ -108,7 +109,7 @@ async function getSlotRequest(studentCode) {
         }
         else if(res.status == 404){
             tableSlotBody.innerHTML = window.innerWidth < 775 ?
-                `<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">You don't have a slot request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a slot request currently</td></tr>`
+                `<tr><td colspan="5" style="text-align:center; padding-left:12%; white-space: nowrap">You don't have a slot request currently</td></tr>`: `<tr><td colspan="6" style="text-align:center;">You don't have a slot request currently</td></tr>`
         }
         else{
             tableSlotBody.innerHTML =
@@ -116,10 +117,29 @@ async function getSlotRequest(studentCode) {
         }
     }catch(error){
         console.log(error);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
     }
 }
+function updateText(){
+    const currentClassLabel = document.getElementById("current_class_label");
+    const currentSlotLabel = document.getElementById("current_slot_label");
+  if(screenWidth <= 775){
+    currentClassLabel.textContent = "Class request";
+    currentSlotLabel.textContent = "Slot request";
+  }else{
+    currentClassLabel.textContent = "Current class request";
+    currentSlotLabel.textContent = "Current slot request";
+  }
+}
 window.onload = async () => {
+    updateText();
+    const expried = isTokenExpired(token);
+    const refreshToken = localStorage.getItem("refreshToken");
+    if(expried && refreshToken){
+        console.log("Access token expired. Getting a new one...");
+        await getNewAccessToken(refreshToken);
+        token = localStorage.getItem("accessToken");
+    }
     tableBody.innerHTML = window.innerWidth < 775 ?
       '<tr><td colspan="6" style="text-align:center; padding-left:43%; white-space: nowrap">Loading...</td></tr>' : '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
     tableSlotBody.innerHTML = window.innerWidth < 775 ?
@@ -127,7 +147,7 @@ window.onload = async () => {
     document.getElementById("date").textContent = formatDate();
     const hour = now.getHours();
     const expired = isTokenExpired(token);
-    if(expired || !token){
+    if(!token){
         member_welcome.textContent = "Welcome, please log in first!";
         unloadProfile();
         unloadAvatar(true);
@@ -147,7 +167,7 @@ window.onload = async () => {
             else if (hour >= 5 && hour <= 10)
                 member_welcome.textContent = "Have a nice day, " + username + "!";
             else if (hour >= 11 && hour <= 12)
-                member_welcome.textContent = "Happy Midday, " + username + "!";
+                member_welcome.textContent = "Have a nice day, " + username + "!";
             else if (hour >= 13 && hour <= 18)
                 member_welcome.textContent = "Good Afternoon, " + username + "!";
             else if (hour >= 19 && hour <= 21)
@@ -174,7 +194,7 @@ async function changeInformation(studentCode, classCode){
     editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i> Updating...`;
     const hammer = document.querySelector(".fa-hammer");
     if(screenWidth < 775){
-        usermenu.style.gap = "95px";
+        usermenu.style.gap = "30px";
     }
     hammer.classList.add("hitting");
     try{
@@ -194,7 +214,7 @@ async function changeInformation(studentCode, classCode){
             if(newProfile) loadProfile();
             editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i> Done!`;
             if(screenWidth < 775){
-                usermenu.style.gap = "130px";
+                usermenu.style.gap = "55px";
             }
         }
         else if(res.status === 400 || res.status === 401){
@@ -203,7 +223,7 @@ async function changeInformation(studentCode, classCode){
         hammer.classList.remove("hitting");
     }catch(error){
         console.log(error);
-        alert("Cannot connect to server");
+        alert("Server is starting up...");
         hammer.classList.remove("hitting");
     }
 }
@@ -212,14 +232,13 @@ const editConfirmBtn = document.getElementById("edit_confirm");
 const editCancelBtn = document.getElementById("edit_cancel");
 const usermenu = document.getElementById("user");
 const information_button = document.getElementById("information_button");
-const screenWidth = window.innerWidth;
 
 editBtn.addEventListener("click" , () => {
     newStudentCode.disabled = false;
     newClassCode.disabled = false;
     editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i>Editing...`;
     if(screenWidth < 775){
-        usermenu.style.gap = "100px";
+        usermenu.style.gap = "30px";
     }
     editBtn.classList.add("lock");
     information_button.style.opacity = "1";
@@ -232,7 +251,7 @@ editConfirmBtn.addEventListener("click", async () => {
     newStudentCode.disabled = true;
     editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i>Edit`;
     if(screenWidth < 775){
-        usermenu.style.gap = "130px";
+        usermenu.style.gap = "55px";
     }
     editBtn.classList.remove("lock");
     information_button.style.opacity = "0";
@@ -250,7 +269,7 @@ editCancelBtn.addEventListener("click", () => {
     editConfirmBtn.style.pointerEvents = "none";
     editCancelBtn.style.pointerEvents = "none";
     if(screenWidth < 775){
-        usermenu.style.gap = "130px";
+        usermenu.style.gap = "55px";
     }
     loadProfile();
 })
@@ -277,7 +296,7 @@ async function deleteRequest(id) {
         }
     }catch(error){
         console.log(error);
-        alert("Cannot connect to server");
+        alert("Cannot delete request");
         deleteBtn.innerHTML = `Delete request`;
     }
 }
@@ -303,7 +322,7 @@ async function deleteSlotRequest(id) {
         }
     }catch(error){
         console.log(error);
-        alert("Cannot connect to server");
+        alert("Cannot delete request");
         deleteBtn.innerHTML = `Delete request`;
     }
 }

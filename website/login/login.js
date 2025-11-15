@@ -9,7 +9,7 @@ const closePass = document.getElementById("closePass");
 const passwordInput = document.getElementById("password_type");
 
 window.onload = async () => {
-    wakeupServer();
+    await wakeupServer();
 }
 
 openPass.addEventListener("click", () => {
@@ -66,7 +66,7 @@ async function login(username, password) {
 
     } catch (error) {
         console.error("Login Error:", error);
-        alert("Cannot connect to server!");
+        alert("Server is starting up...!");
     }
 }
 

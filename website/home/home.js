@@ -1,5 +1,6 @@
 import { account_api, exchange_class_create_api, exchange_class_get_by_classCode_api, server_url } from "../../utils/apiconfig.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
+import { getNewAccessToken } from "../../utils/getNewAccessToken.js";
 import { getProfile } from "../../utils/getProfile.js";
 import { isTokenExpired } from "../../utils/isTokenExpired.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
@@ -27,7 +28,7 @@ const exchangeInput = document.getElementById("Exchange");
 const username = document.getElementById("username");
 const studentCode = document.getElementById("id");
 const classCode = document.getElementById("Menu_current_class");
-const token = localStorage.getItem("accessToken");
+let token = localStorage.getItem("accessToken");
 const requestAdd = document.getElementById("requestAdd");
 let currentPage = 1;
 let totalPages = 1;
@@ -59,12 +60,18 @@ document.addEventListener("click", (e) => {
 
 
 window.onload = async() => {
-  wakeupServer();
+  await wakeupServer();
 
   const expried = isTokenExpired(token);
+  const refreshToken = localStorage.getItem("refreshToken");
+  if(expried && refreshToken){
+    console.log("Access token expired. Getting a new one...");
+    await getNewAccessToken(refreshToken);
+    token = localStorage.getItem("accessToken");
+  }
   tableBody.innerHTML = window.innerWidth < 775?
-      '<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">Typing desired class to begin exchanging.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Typing desired class to begin exchanging.</td></tr>';
-  if(expried || !token){
+      '<tr><td colspan="5" style="text-align:center; padding-left:25%; white-space: nowrap">Type in class to find request.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Type in class to find request</td></tr>';
+  if(!token){
     member_welcome.textContent = "Welcome, please log in first!";
     unloadProfile();
     addClassandSlotBtn.style.display = "none";
@@ -111,14 +118,15 @@ window.onload = async() => {
 
 
 logout.addEventListener("click", () => {
-  window.location.href = "../home/home.html";
   alert("Logout Successfully");
   profile.style.display = "none";
   logout.style.display = "none";
   unloadProfile();
+  localStorage.removeItem("refreshToken");
   addClassandSlotBtn.style.display = "none";
   addClassandSlotBtn.style.pointerEvents = "none";
   unloadAvatar(false);
+  window.location.href = "../home/home.html";
 });
 
 //ADMIN PRIVILEGE
@@ -203,7 +211,7 @@ async function addRequest(studentCode, desiredClassCode) {
   }
   catch(err){
     console.error(err);
-    alert("Cannot connect to server");
+    alert("Server is starting up...");
   }
 }
 
