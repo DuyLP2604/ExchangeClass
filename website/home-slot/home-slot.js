@@ -233,7 +233,7 @@ requestAdd.addEventListener("submit", (e) => {
  */
 async function fetchExchangeData(classCode, page) {
   // Hiển thị trạng thái đang tải (tùy chọn)
-  tableBody.innerHTML = screenWidth > 775 ?
+  tableBody.innerHTML = window.innerWidth > 775 ?
     '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>' : '<tr><td colspan="5" style="text-align:center; padding-left:25%;">Loading...</td></tr>'
   startProgressBar();
 
