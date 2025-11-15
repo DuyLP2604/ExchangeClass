@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Times New Roman", Times, serif;
   margin: 0px;
@@ -478,7 +482,7 @@ input[type="checkbox"] {
     width: 40px; 
   }
   #serverStatus{
-    left: -20px;
+    left: 0;
     width: 100%;
     top:50px;
   }
@@ -535,6 +539,10 @@ input[type="checkbox"] {
     margin-right: 40px;
     margin-left: 20px;
     box-sizing: border-box;
+    height: 35px;
+  }
+
+  #id,#Menu_exchanging_class{
     height: 30px;
   }
 

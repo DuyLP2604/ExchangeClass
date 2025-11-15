@@ -1,3 +1,4 @@
+
 body{
     background-color: aliceblue;
     background-size: cover;
@@ -170,7 +171,7 @@ button{
         margin-right: 20px;
     }
     .login_form h2{
-        font-size: 19px;
+        font-size: 20px;
         margin: 15px 0px 20px 0px;
         text-align: center;
     }
@@ -179,8 +180,9 @@ button{
         padding-right: 40px;
     }
     #serverStatus{
-        left: -15px;
+        left: 0px;
         width: 100%;
         top:0px;
+        box-sizing: border-box;
     }
 }

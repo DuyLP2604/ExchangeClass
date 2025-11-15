@@ -229,7 +229,8 @@ input[type="checkbox"]{
 }
 @media (max-width :775px){
     #serverStatus{
-        left: -15px;
+        left: 0px;
+        box-sizing: border-box;
         width: 100%;
         top:0px;
     }
