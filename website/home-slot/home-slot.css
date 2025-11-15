@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+
 
 body {
   font-family: "Times New Roman", Times, serif;
@@ -468,6 +466,7 @@ input[type="checkbox"] {
     left: 0px;
     width: 100%;
     top:50px;
+    box-sizing: border-box;
   }
   #user_ring{
     top:-22px;
