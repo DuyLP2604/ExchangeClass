@@ -234,9 +234,9 @@ requestAdd.addEventListener("submit", (e) => {
  */
 async function fetchExchangeData(classCode, page) {
   // Hiển thị trạng thái đang tải (tùy chọn)
-  tableBody.innerHTML =
-    '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>';
-    startProgressBar();
+  tableBody.innerHTML = screenWidth > 775 ?
+    '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>' : '<tr><td colspan="5" style="text-align:center; padding-left:35%;">Loading...</td></tr>'
+  startProgressBar();
 
   try {
     const response = await fetch(exchange_class_get_by_classCode_api(classCode,page), {
