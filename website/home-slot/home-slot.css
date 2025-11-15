@@ -211,9 +211,9 @@ body {
   transform: scale(1.2);
   transform-origin: center;
   top: 200px;
-  left: 300px;
+  left: 370px;
   height: 300px;
-  width: 900px;
+  width: 800px;
   z-index: 999;
 }
 
@@ -274,10 +274,11 @@ input[type="checkbox"] {
 }
 
 .addStudent #Menu_submit {
-  width: 85%;
+  width: 90%;
   justify-content: center;
-  margin: 10px 10px 10px 50px;
+  margin: 10px 10px 10px 40px;
   font-size: 20px;
+  font-weight: 600;
   padding: 15px;
   border-radius: 10px;
   cursor: pointer;
@@ -353,9 +354,13 @@ input[type="checkbox"] {
   height: 30px;
   font-size: 15px;
   border-radius: 4px;
+  border: none;
+  color: white;
   margin-top: 4px;
-  background-color: rgba(128, 128, 128,0.8);
+  background: linear-gradient(45deg, #FF416C, #FF4B2B);
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 3px 10px rgb(248, 0, 0);
 }
 
 .dropdown a:hover {
@@ -613,14 +618,14 @@ input[type="checkbox"] {
     border: none;
     position: relative;
     text-align: left;
-    padding-left: 40%;
+    padding-left: 50%;
   }
 
   #results_table td::before{
     content: attr(data-label);
     position: absolute;
     left:10px;
-    width:45%;
+    width:55%;
     font-weight: bold;
   }
 
