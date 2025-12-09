@@ -1,18 +1,6 @@
-#Accounts
-    
-Account object
-    
-    {
-        id : int
-        userName: String
-        password: String
-        phoneNumber: String
-        accountName: String
-        studentCode: String
-        classCode: String
-    }
+# auth
 
-POST /register
+POST /auth/register
 
 description : tạo tài khoản mới
 URL Params: None
@@ -32,57 +20,44 @@ Headers: Content-Type: application/json
 
 success response :
 
-{
-    "processSuccess": true,
-    "data": "no data",
-    "error": "no error",
-    "message": "registered successfully",
-    "httpStatus": 201
-}
+    httpStatus: 201
+    {
+        "processSuccess": true,
+        "data": "no data",
+        "error": "no error",
+        "message": "registered successfully",
+        
+    }
 
 
 error response:
     
 khi có đã có field đã tồn tại
 
+
+    httpStatus: 409
     {
         "processSuccess": false,
         "data": "no data",
         "error": "existed field name" ,
         "message": "register failed",
-        "httpStatus": 409
+        
     }
-        sample:
-        {
-            "processSuccess": false,
-            "data": "no data",
-            "error": "existed username" ,
-            "message": "register failed",
-            "httpStatus": 409
-        }
 
 khi có null field
-    
+
+    httpStatus: 400
     {
         "processSuccess": false,
         "data": "no data",
         "error": "null field name",
         "message": "register failed",
-        "httpStatus": 400
     }
-        sample:
-            {
-                "processSuccess": false,
-                "data": "no data",
-                "error": "null username",
-                "message": "register failed",
-                "httpStatus": 400
-            }
 
 
-POST /login
+POST /auth/login
 
-description : đăng nhập
+description : đăng nhập ,bật http only, https và tự động thêm refresh token vào header
 
 URL Params: None
 
@@ -100,9 +75,12 @@ success response:
     Http code : 200
         content:
             {
-                refresh token: string,
-                access token: String
-                message: "login sucess"
+                "processSuccess": false,
+                "data": "{
+                    "accessToken": "string"
+                    }"
+                "error": "no error",
+                "message": "login successfully",
             }
 
 error response : 
@@ -114,26 +92,27 @@ error response :
             "data": "no data",
             "error": "unauthorizaed",
             "message": "incorrect password",
-            "httpStatus": 400
         }
 
+    httpStatus: 404
     khi user name không tồn tại
     {
         "processSuccess": false,
         "data": "no data",
         "error": "no username existed",
         "message": "login failed",
-        "httpStatus": 404`
     }
     or
+
+    httpStatus: 400
     khi user name hoặc password là null
-    {
-        "processSuccess": false,
-        "data": "no data",
-        "error": "null password or username",
-        "message": "login failed",
-        "httpStatus": 400
-    }
+        {
+            "processSuccess": false,
+            "data": "no data",
+            "error": "null password or username",
+            "message": "login failed",
+            
+        }
 
 
 JWT login
@@ -151,18 +130,36 @@ success response : none
 error response:
 
     khi chưa đăng nhập hoặc sai token
-    {
-        "error": "status 401 - unauthorized, invalid token or haven't logged in",
-        "message": "this action need authentication - please login to perform"
-    }
+        {
+            "error": "status 401 - unauthorized, invalid token or haven't logged in",
+            "message": "this action need authentication - please login to perform"
+        }
 
     khi không có quyền truy cập
-    json
+        json
+        {
+            you do not have the authorization to access this endpoint
+        }
+
+Post /auth/logout
+
+description : đăng xuất và tư động xóa refresh token khỏi header
+
+URL Params: None
+
+Data Params: None
+
+Headers:Content-Type: application/json
+
+success response 
+    
     {
-        you do not have the authorization to access this endpoint
+        Http code: 200,
+        message: "logout successfully"
     }
 
-PATCH /reset_password
+
+PATCH /auth/reset_password
 
 description : đổi mật khẩu 
 
@@ -190,32 +187,28 @@ error response
     Http code 401 
     khi mật khẩu không hợp lệ
     {
-    "processSuccess": false,
-    "data": "no data",
-    "error": "invalid password",
-    "message": "reset failed",
+        "processSuccess": false,
+        "data": "no data",
+        "error": "invalid password",
+        "message": "reset failed",
     }
 
     khi không tìm thấy tài khoản
     Http code 404
     {
-    "processSuccess": false,
-    "data": "no data",
-    "error": "no existed account",
-    "message": "reset failed",
+        "processSuccess": false,
+        "data": "no data",
+        "error": "no existed account",
+        "message": "reset failed",
     }
 
-POST /refresh_access_token
+POST /auth/refresh_access_token
 
 description : làm mới access token bằng refresh token
 
 URL Params: None
 
-Data Params:
-
-    {
-        refreshToken: String
-    }
+Data Params:none
 
 Headers: Content-Type: application/json
 
@@ -242,6 +235,21 @@ error response
         "message": "invalid refresh token or access token haven't expired",
         "error": "UNAUTHORIZED",
         "data": "no data"
+    }
+
+
+# Account
+
+Account object
+
+    {
+        id : int
+        userName: String
+        password: String
+        phoneNumber: String
+        accountName: String
+        studentCode: String
+        classCode: String
     }
 
 Patch /account
@@ -396,7 +404,7 @@ Error Response:
         "data": "no data"
     }
 
-Patch /exchange_class
+Patch /exchange_class/id/{id}
 
 description : thay đổi nguyện vọng lớp của sinh viên (studentCode, desiredClassCode)
 
@@ -405,7 +413,6 @@ URL Param : none
 Data Param:
     
     {
-    "studentCode" : String,
     "desiredClassCode" : String
     }
 
@@ -719,16 +726,12 @@ MajorClass(class)
         "slot":String ("1,2") or("3,4")
     }
     tên object là MajorClass vì class là ký hiệu trong java
-    
 
-lưu ý quan trọng chỉ có role admin mới có thể truy cập
-tới các endpoint /class  
-
-
-POST /class
+POST /class 
 
 Description:
 Thêm một lớp học mới (class) vào hệ thống.
+quyền yêu cầu là admin
 
 URL Params:
 NONE
@@ -773,6 +776,7 @@ PATCH /class
 
 Description:
 Thay đổi thông tin của MajorClass (class code hoặc slot).
+quyền yêu cầu là admin
 
 URL Params:
 none
@@ -819,5 +823,278 @@ Data Param:
         "processSuccess": false,
         "message": "not found class with class code: {classCode}",
         "error": "NOT_FOUND",
+        "data": "no data"
+    }
+
+GET /class/page/{page}
+
+Description:
+Lấy danh sách lớp (MajorClass) theo trang (phân trang).
+
+URL Params:
+    page : int (>=0)
+    example: /class/page/0
+
+Headers:
+    Content-Type: application/json
+    Authorization: Bearer <accessToken>   (required — only admin role can access endpoints under /class)
+
+Data Params: None
+
+Success Response:
+
+    HTTP Code: 200 OK
+    Content:
+    {
+        "processSuccess": true,
+        "message": "MajorClasses loaded successfully",
+        "error": "no error",
+        "data": [
+            {
+                "classCode": "string",
+                "slot": "string"    // "1,2" or "3,4"
+            },
+            ...
+        ]
+    }
+
+Error Responses:
+
+khi page < 0
+
+    HTTP Code: 400 BAD REQUEST
+    Content:
+    {
+        "processSuccess": false,
+        "message": "page must >= 0",
+        "error": "bad request",
+        "data": "no data"
+    }
+
+không tìm thấy class nào trong hệ thống
+
+    HTTP Code: 404 NOT_FOUND
+    Content:
+    {
+        "processSuccess": false,
+        "message": "no major class found",
+        "error": "NOT_FOUND",
+        "data": null
+    }
+
+
+# Chat
+
+Chat object
+
+    {
+        "id": int,
+        "user1Id": int,
+        "user2Id": int
+    }
+
+POST /chat
+
+description: tạo một chat mới giữa hai user
+
+URL Params: None
+
+Data Params:
+
+    {
+        "user1Id": int,
+        "user2Id": int
+    }
+
+Headers: Content-Type: application/json
+
+success response:
+
+    HTTP Code: 200 OK
+    Content:
+    {
+        "processSuccess": true,
+        "message": "chat created successfully",
+        "error": "no error",
+        "data": "no data"
+    }
+
+error response:
+    
+    khi payload thiếu field hoặc giá trị không hợp lệ
+    HTTP Code: 400 BAD REQUEST
+    Content:
+    {
+        "processSuccess": false,
+        "message": "create chat failed",
+        "error": "null or invalid field",
+        "data": "no data"
+    }
+
+    - khi có lỗi hệ thống (DB, internal error)
+    HTTP Code: 500 INTERNAL_SERVER_ERROR
+    Content:
+    {
+        "processSuccess": false,
+        "message": "can not create chat for some internal errors",
+        "error": "INTERNAL_SERVER_ERROR",
+        "data": "no data"
+    }
+
+
+GET /chat/page/{page}
+
+description: lấy danh sách chats của account hiện tại (dựa trên JWT)
+
+URL Params:
+    page: int (>=0)
+
+Headers:
+    Content-Type: application/json
+    Authorization: Bearer <accessToken>  (required — endpoint reads username from JWT)
+
+Data Params: None
+
+
+
+success response:
+
+    HTTP Code: 200 OK
+    Content:
+    {
+        "processSuccess": true,
+        "message": "chats loaded successfully",
+        "error": "no error",
+        "data": [ {GetChatDTO}, ... ]
+    }
+
+error responses:
+
+khi page < 0
+
+    HTTP Code: 400 BAD REQUEST
+    Content:
+    {
+        "processSuccess": false,
+        "message": "page must >= 0",
+        "error": "bad request",
+        "data": "no data"
+    }
+
+khi chưa đăng nhập / token không hợp lệ
+
+    HTTP Code: 401 UNAUTHORIZED
+    Content:
+    {
+        "processSuccess": false,
+        "message": "have not logged in",
+        "error": "UNAUTHORIZED",
+        "data": "no data"
+    }
+
+khi không có chat nào cho user
+
+    HTTP Code: 404 NOT_FOUND
+    Content:
+    {
+        "processSuccess": false,
+        "message": "no chat with user id {id} found",
+        "error": "NOT_FOUND",
+        "data": null
+    }
+
+
+# Message
+
+SendMessageDTO
+
+    {
+        "chatId": int,
+        "senderId": int,
+        "content": String
+    }
+
+ResponseMessageDTO
+
+    {
+        "id": int,
+        "chatId": int,
+        "content": String,
+        "senderId": int
+    }
+
+WebSocket: sendMessage (STOMP)
+
+Endpoint: /app/sendMessage  (MessageMapping("sendMessage"))
+
+description: gửi 1 message qua WebSocket — server sẽ broadcast tới /topic/{chatId} và lưu message vào DB
+
+Data Params (message payload):
+
+    {
+        "chatId": int,
+        "senderId": int,
+        "content": String
+    }
+
+Success behavior (WebSocket): server forwards the message to /topic/{chatId} and saves the message. No HTTP response (WS message acknowledgement depends on STOMP client).
+
+
+GET /message/id/{id}/page/{page}
+
+description: tải messages theo chat id (phân trang)
+
+URL Params:
+    
+    id: int (chatId)
+    page: int (>=0)
+
+Headers: Content-Type: application/json
+
+Data Params: None
+
+success response:
+
+    HTTP Code: 200 OK
+    Content:
+    {
+        "processSuccess": true,
+        "message": "messages loaded successfully",
+        "error": "no error",
+        "data": [ {ResponseMessageDTO}, ... ]
+    }
+
+error responses:
+
+khi page < 0
+
+    HTTP Code: 400 BAD REQUEST
+    Content:
+    {
+        "processSuccess": false,
+        "message": "page must >= 0",
+        "error": "bad request",
+        "data": "no data"
+    }
+
+khi không có message nào cho chat id
+
+    HTTP Code: 404 NOT_FOUND
+    Content:
+    {
+        "processSuccess": false,
+        "message": "no message with chat id {id} found",
+        "error": "NOT_FOUND",
+        "data": null
+    }
+
+internal error (DB...)
+
+    HTTP Code: 500 INTERNAL_SERVER_ERROR
+    Content:
+    {
+        "processSuccess": false,
+        "message": "can not load messages for some internal errors",
+        "error": "INTERNAL_SERVER_ERROR",
         "data": "no data"
     }

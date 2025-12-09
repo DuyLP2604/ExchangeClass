@@ -1,27 +1,27 @@
-export async function getProfile(account_api, token) {
-    try{
-        const res = await fetch(account_api, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
+import { fetchWithAuth } from "./fetchWithAuth.js";
+
+export async function getProfile(account_api) {
+    try {
+        const res = await fetchWithAuth(account_api);
         const response = await res.json();
-        const data = response.data;
-        
-        console.log(data);
-        if(res.ok){
+
+        if (res.ok) {
+            const data = response.data;
+
             localStorage.setItem("id", data.id);
             localStorage.setItem("classCode", data.classCode);
             localStorage.setItem("studentCode", data.studentCode);
             localStorage.setItem("accountName", data.accountName);
             localStorage.setItem("role", data.role);
-            return data;
+
+            return { status: res.status, data };
+        } else {
+            return { status: res.status, data: null };
         }
-        else if(res.status === 401){
-            alert(data.error + ": " + data.message);
-        }
-    }
-    catch(error){
-        console.log(error);
+
+    } catch (error) {
+        console.error("Get profile error:", error);
+        return { status: 500, data: null };
     }
 }
+

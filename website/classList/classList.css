@@ -1,0 +1,108 @@
+body{
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: aliceblue;
+    font-size: 20px;
+}
+
+#table_container{
+    border-radius: 8px;
+    background-color: white;
+    padding: 15px;
+}
+
+#table_container h2{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+table{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+table tr{
+    border: 1px solid black;
+    height: 30px;
+}
+
+table th,
+table td{
+    border: 1px solid black;
+    padding: 10px 12px;
+    width: 150px;
+    text-align: center;
+}
+table tr:nth-child(even) {
+    background-color: #f6faff; 
+}
+table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+table tr:hover {
+    background-color: #e8f2ff;
+}
+
+#table_container #button_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#table_container #button_container button{
+    height: auto;
+    width: 20%;
+    line-height: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(0, 132, 255);
+    color: white;
+    box-shadow: 0 4px 8px rgb(0, 104, 201);
+    transition: all 0.2s ease;
+}
+#table_container #button_container #previousBtn:hover{
+    transform: translateX(-2px);
+    box-shadow: -2px 4px 8px rgb(0, 104, 201);
+} 
+#table_container #button_container #nextBtn:hover{
+    transform: translateX(2px);
+    box-shadow: 2px 4px 8px rgb(0, 104, 201);
+} 
+
+#table_container #button_container button i {
+    line-height: 1;
+    font-size: 18px; 
+}
+#table_container #button_container p{
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+#backBtn {
+    padding: 6px 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+#backBtn:hover {
+    background: #005fcc;
+}
+

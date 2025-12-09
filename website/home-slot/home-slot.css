@@ -340,6 +340,7 @@ input[type="checkbox"] {
   top: 25px;
   border: 3px solid rgb(198, 198, 198);
   z-index: 10;
+  width: 100px;
 }
 
 .dropdown a {

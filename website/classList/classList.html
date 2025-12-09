@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class List</title>
+    <link rel = "stylesheet" href = "classList.css">
+    <link rel = "stylesheet" href = "../../assets/css/all.min.css">
+</head>
+<body>
+    <div id = "table_container">
+        <button id="backBtn" onclick="history.back()"><i class="fa-solid fa-left-long"></i>Back</button>
+        <h2>Class List</h2>
+        <table id = "classListTable">
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Slot</th>
+                </tr>
+            </thead>
+            <tbody id = "table_body">
+            </tbody>
+        </table>
+        <div id = "button_container">
+            <button type = "button" id = "previousBtn"><i class="fa-solid fa-left-long"></i></button>
+            <p>Page 1 / ...</p>
+            <button type = "button" id = "nextBtn"><i class="fa-solid fa-right-long"></i></button>
+        </div>
+    </div>
+    <script type = "module" src = "classList.js"></script>
+</body>
+</html>

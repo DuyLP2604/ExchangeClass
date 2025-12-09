@@ -1,9 +1,8 @@
 import { account_api, exchange_class_delete_api, exchange_class_get_by_studentCode, exchange_slot_delete_api, exchange_slot_get_by_studentCode} from "../../utils/apiconfig.js";
-import { isTokenExpired } from "../../utils/isTokenExpired.js";
 import { getProfile } from "../../utils/getProfile.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
-import { getNewAccessToken } from "../../utils/getNewAccessToken.js";
+import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 
 export let token = localStorage.getItem("accessToken");
 export const member_welcome = document.getElementById("member_welcome");
@@ -47,11 +46,7 @@ function loadProfile(){
 
 async function getClassRequest(studentCode) {
     try{
-        const res = await fetch(exchange_class_get_by_studentCode(studentCode), {
-            headers: {
-                "Authorization" : `Bearer ${token}`
-            }
-        })
+        const res = await fetchWithAuth(exchange_class_get_by_studentCode(studentCode))
         const response = await res.json();
         const data = response.data;
         if(res.ok){
@@ -86,11 +81,7 @@ async function getClassRequest(studentCode) {
 
 async function getSlotRequest(studentCode) {
     try{
-        const res = await fetch(exchange_slot_get_by_studentCode(studentCode), {
-            headers: {
-                "Authorization" : `Bearer ${token}`
-            }
-        })
+        const res = await fetchWithAuth(exchange_slot_get_by_studentCode(studentCode))
         const response = await res.json();
         const data = response.data;
         if(res.ok){
@@ -133,21 +124,14 @@ function updateText(){
 }
 window.onload = async () => {
     updateText();
-    const expried = isTokenExpired(token);
-    const refreshToken = localStorage.getItem("refreshToken");
-    if(expried && refreshToken){
-        console.log("Access token expired. Getting a new one...");
-        await getNewAccessToken(refreshToken);
-        token = localStorage.getItem("accessToken");
-    }
+    const profileResponse = await getProfile(account_api);
     tableBody.innerHTML = window.innerWidth < 775 ?
       '<tr><td colspan="6" style="text-align:center; padding-left:43%; white-space: nowrap">Loading...</td></tr>' : '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
     tableSlotBody.innerHTML = window.innerWidth < 775 ?
       '<tr><td colspan="5" style="text-align:center; padding-left:43%; white-space: nowrap">Loading...</td></tr>' : '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>';
     document.getElementById("date").textContent = formatDate();
     const hour = now.getHours();
-    const expired = isTokenExpired(token);
-    if(!token){
+    if(!token || profileResponse.status === 401 || !profileResponse.data){
         member_welcome.textContent = "Welcome, please log in first!";
         unloadProfile();
         unloadAvatar(true);
@@ -176,7 +160,6 @@ window.onload = async () => {
         }
         document.getElementById("username").textContent = username;
         document.getElementById("login_required").style.display = "none";
-        await getProfile(account_api, token);
         userAvatar(true);
         editBtn.style.opacity = 1;
         editBtn.style.pointerEvents = "all";
@@ -198,19 +181,15 @@ async function changeInformation(studentCode, classCode){
     }
     hammer.classList.add("hitting");
     try{
-        const res = await fetch(account_api, {
+        const res = await fetchWithAuth(account_api, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
             body: JSON.stringify({studentCode, classCode})
         })
 
         const data = await res.json();
         if(res.status === 200){
             alert("Change information successfully");
-            const newProfile = await getProfile(account_api, token);
+            const newProfile = await getProfile(account_api);
             if(newProfile) loadProfile();
             editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i> Done!`;
             if(screenWidth < 775){
@@ -278,12 +257,8 @@ editCancelBtn.addEventListener("click", () => {
 async function deleteRequest(id) {
     deleteBtn.innerHTML = `Deleting...`
     try{
-        const res = await fetch(exchange_class_delete_api(id), {
+        const res = await fetchWithAuth(exchange_class_delete_api(id), {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
             body: JSON.stringify({id})
         })
 
@@ -304,12 +279,8 @@ async function deleteRequest(id) {
 async function deleteSlotRequest(id) {
     deleteSlotBtn.innerHTML = `Deleting...`
     try{
-        const res = await fetch(exchange_slot_delete_api(id), {
+        const res = await fetchWithAuth(exchange_slot_delete_api(id), {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
             body: JSON.stringify({id})
         })
 

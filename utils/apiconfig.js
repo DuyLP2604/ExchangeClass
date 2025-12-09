@@ -1,10 +1,11 @@
 export const base_url = "https://exchangeslot-api-testing.onrender.com";
 export const server_url = `${base_url}/hello`;
-export const get_new_access_token_url = `${base_url}/refresh_access_token`;
+export const logout_url = `${base_url}/auth/logout`;
+export const get_new_access_token_url = `${base_url}/auth/refresh_access_token`;
 // ================ ACCOUNT ENDPOINT ======================
-export const register_api = `${base_url}/register`;
-export const login_api = `${base_url}/login`;
-export const reset_password_api = `${base_url}/reset_password`;
+export const register_api = `${base_url}/auth/register`;
+export const login_api = `${base_url}/auth/login`;
+export const reset_password_api = `${base_url}/auth/reset_password`;
 export const account_api = `${base_url}/account`;
 // ================ EXCHANGE ENDPOINT ===============
 export const exchange_class_create_api = `${base_url}/exchange_class`;
@@ -16,4 +17,6 @@ export const exchange_class_get_by_slot_api = (slot, page) => `${base_url}/excha
 // ================EXCHANGE GET INFORMATION ENDPOINT ===========
 export const exchange_class_get_by_studentCode = (studentCode) => `${base_url}/exchange_class/student_code/${studentCode}`;
 export const exchange_slot_get_by_studentCode = (studentCode) => `${base_url}/exchange_slot/student_code/${studentCode}`;
-
+export const get_classList = (page) => `${base_url}/class/page/${page}`;
+// ================= ADMIN PRIVILIGE ============================
+export const class_api_for_admin = `${base_url}/class`;

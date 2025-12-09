@@ -1,12 +1,13 @@
 import { exchange_slot_create_api, exchange_class_get_by_slot_api, account_api } from "../../utils/apiconfig.js";
+import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
-import { getNewAccessToken } from "../../utils/getNewAccessToken.js";
 import { getProfile } from "../../utils/getProfile.js";
-import { isTokenExpired } from "../../utils/isTokenExpired.js";
+import { callLogout } from "../../utils/logout.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
 import { wakeupServer } from "../../utils/wakeupServer.js";
+import { tableBody, token, member_welcome, profile, logout, addClassandSlotBtn, hour } from "../home/home.js";
 
 const avatarBtn = document.getElementById("dropdownAvatar");
 const dropdownMenu = document.getElementById("dropdownMenu");
@@ -58,69 +59,93 @@ document.addEventListener("click", (e) => {
   }
 });
 
-window.onload = async() => {
+window.onload = async () => {
   await wakeupServer();
-  const expried = isTokenExpired(token);
-  const refreshToken = localStorage.getItem("refreshToken");
-  if(expried && refreshToken){
-    console.log("Access token expired. Getting a new one...");
-    await getNewAccessToken(refreshToken);
-    token = localStorage.getItem("accessToken");
-  }
-  tableBody.innerHTML = window.innerWidth < 775 ?
-      '<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">Type in class to find request.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Type in class to find request.</td></tr>';
-  if(!token){
-    member_welcome.textContent = "Welcome, please log in first!";
-    profile.style.display = "none";
-    logout.style.display = "none";
-    unloadProfile(false);
-    unloadAvatar(false);
-    addClassandSlotBtn.style.display = "none";
-    addClassandSlotBtn.style.pointerEvents = "none";
-  }
-  else{
-    profile.style.display = "block";
-    logout.style.display = "block";
-    await getProfile(account_api, token);
-    userAvatar(false);
-    const username = localStorage.getItem("username");
-    if(username){
-      if (hour >= 0 && hour <= 4)
-        member_welcome.textContent = "Good Night, " + username + "!";
-      else if (hour >= 5 && hour <= 10)
-        member_welcome.textContent = "Have a nice day, " + username + "!";
-      else if (hour >= 11 && hour <= 12)
-        member_welcome.textContent = "Happy Midday, " + username + "!";
-      else if (hour >= 13 && hour <= 18)
-        member_welcome.textContent = "Good Afternoon, " + username + "!";
-      else if (hour >= 19 && hour <= 21)
-        member_welcome.textContent = "Good Evening, " + username + "!";
-      else member_welcome.textContent = "Good Night, " + username + "!";
-    }
 
-    if(localStorage.getItem("role") === "ADMIN"){
-      addClassandSlotBtn.style.display = "block";
-      addClassandSlotBtn.style.pointerEvents = "all";
-    }
-    else{
-      addClassandSlotBtn.style.display = "none";
-      addClassandSlotBtn.style.pointerEvents = "none";
-    }
+  const profileResponse = await getProfile(account_api);
+
+  tableBody.innerHTML =
+    window.innerWidth < 775
+      ? `<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">
+            Type in class to find request.
+         </td></tr>`
+      : `<tr><td colspan="5" style="text-align:center;">
+            Type in class to find request
+         </td></tr>`;
+
+  if (!token || profileResponse.status === 401 || !profileResponse.data) {
+    handleLoggedOutState();
+    return;
   }
+
+  handleLoggedInState();
 };
 
-logout.addEventListener("click", () => {
-  alert("Logout Successfully");
+//====================UI FUNCTIONS=============================
+
+function handleLoggedOutState() {
+  member_welcome.textContent = "Welcome, please log in first!";
+  unloadProfile();
+  unloadAvatar(false);
+
   profile.style.display = "none";
   logout.style.display = "none";
-  unloadProfile();
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("refreshToken");
+
   addClassandSlotBtn.style.display = "none";
   addClassandSlotBtn.style.pointerEvents = "none";
-  unloadAvatar(false);
+}
+
+function handleLoggedInState() {
+  profile.style.display = "block";
+  logout.style.display = "block";
+
+  userAvatar(false);
+
+  const username = localStorage.getItem("username");
+  if (username) {
+    member_welcome.innerHTML = `${getGreeting()}, 
+      <span id="usernameGreeting" class="usernameGreeting">${username}</span>!`;
+  }
+
+  const isAdmin = localStorage.getItem("role") === "ADMIN";
+  addClassandSlotBtn.style.display = isAdmin ? "block" : "none";
+  addClassandSlotBtn.style.pointerEvents = isAdmin ? "all" : "none";
+}
+
+function getGreeting() {
+  if (hour <= 4) return "Good Night";
+  if (hour <= 10) return "Have a nice day";
+  if (hour <= 12) return "Have a nice day";
+  if (hour <= 18) return "Good Afternoon";
+  if (hour <= 21) return "Good Evening";
+  return "Good Night";
+}
+
+//===================LOGOUT===============================
+
+logout.addEventListener("click", async () => {
+  const isLogout = await callLogout();
+
+  if (!isLogout) {
+    alert("Cannot logout due to server");
+    return;
+  }
+
+  alert("Logout Successfully");
+  performLogoutUI();
   window.location.href = "../home/home.html";
 });
+
+function performLogoutUI() {
+  unloadProfile();
+  unloadAvatar(false);
+
+  profile.style.display = "none";
+  logout.style.display = "none";
+
+  addClassandSlotBtn.style.display = "none";
+  addClassandSlotBtn.style.pointerEvents = "none";
+}
 
 //ADMIN PRIVILEGE
 addClassandSlotBtn.addEventListener("click", () => {
@@ -178,16 +203,12 @@ classMode.addEventListener("click", () => {
 });
 
 //API ADD REQUEST
-async function addRequest(studentCode, desiredSlot) {
+async function addRequest(studentCode, desiredClassCode) {
   startProgressBar();
   try{
-    const res = await fetch(exchange_slot_create_api, {
+    const res = await fetchWithAuth(exchange_slot_create_api, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({studentCode, desiredSlot})
+      body: JSON.stringify({studentCode, desiredClassCode})
     })
 
     const data = await res.json();
@@ -195,17 +216,8 @@ async function addRequest(studentCode, desiredSlot) {
     if(res.status === 201){
       alert("Add request successfully");
     }
-    else if(res.status === 409){
-      alert(data.message);
-    }
-    else if(res.status === 500){
-      alert(data.message);
-    }
-    else if(res.status === 404 || res.status === 400){
+    else{
       alert(data.error + ": " + data.message);
-    }
-    else if(res.status === 401){
-      alert("Session expired, please log in again.");
     }
   }
   catch(err){
@@ -238,32 +250,15 @@ async function fetchExchangeData(classCode, page) {
   startProgressBar();
 
   try {
-    const response = await fetch(exchange_class_get_by_slot_api(classCode,page), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-    });
+    const response = await fetchWithAuth(exchange_class_get_by_slot_api(classCode,page));
     
     const data = await response.json();
     finishProgressBar();
     if (!response.ok) {
-      if(response.status === 404){
-        tableBody.innerHTML =
+      tableBody.innerHTML =
         `<tr><td colspan="5" style="text-align:center;">${data.error}: ${data.message}</td></tr>`;
-      }
-      else if(response.status === 401){
-        tableBody.innerHTML =
-        `<tr><td colspan="5" style="text-align:center;">Session failed. Please log in again</td></tr>`;
-      }
-      else{
-        tableBody.innerHTML =
-       `<tr><td colspan="5" style="text-align:center;">${data.error || "Error"}: ${data.message || "Unknown error"}</td></tr>`;
-      }
       return null;
     }
-   
     return data;
   } catch (error) {
     console.error("Failed to fetch exchange data:", error);
@@ -309,33 +304,22 @@ function displayData(data) {
 /**
  * Cập nhật trạng thái của các nút điều khiển pagination
  */
-function updatePaginationControls() {
+function updatePaginationControls(dataArrayLength) {
   pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
   prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.disabled = dataArrayLength < 10;
 }
 
-// async function loadPage(classCode, page) {
-//   const backendPage = page - 1;
-//   const responseData = await fetchExchangeData(classCode, backendPage);
-
-//   if (responseData && responseData.data) {
-//     currentPage = page;
-//     totalPages = responseData.pagination.totalPages;
-
-//     displayData(responseData.data);
-//     updatePaginationControls();
-//   }
-// }
 async function loadPage(classCode, page) {
+  let dataArrayLength = 0;
   const backendPage = page - 1;
   const responseData = await fetchExchangeData(classCode, backendPage);
 
-  console.log("Response from API:", responseData); // debug log
+  console.log("Response from API:", responseData); 
 
   if (responseData && responseData.data) {
     currentPage = page;
-    totalPages = responseData.pagination?.totalPages || 1; // tránh undefined
+    dataArrayLength = JSON.parse(responseData.data).length;
     displayData(responseData.data);
   } else {
     tableBody.innerHTML =

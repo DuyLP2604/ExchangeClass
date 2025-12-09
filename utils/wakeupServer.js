@@ -1,5 +1,5 @@
 import { base_url, server_url } from "./apiconfig.js";
-
+const body = document.body;
 export async function wakeupServer() {
   const serverStatus = document.getElementById("serverStatus");
   
@@ -11,6 +11,7 @@ export async function wakeupServer() {
   }
 
   setStatus("Checking server...", "checking");
+  body.style.pointerEvents = "none";
   const isServerRunning = async (url, timeout = 4000) => {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
@@ -22,6 +23,7 @@ export async function wakeupServer() {
     const res = await isServerRunning(server_url)
     if(res.ok){
       setStatus("Server is ready", "ready");
+      body.style.pointerEvents = "all";
       return;
     }
     else{
@@ -35,7 +37,10 @@ export async function wakeupServer() {
     await fetch(base_url);
     const res = await fetch(server_url);
     const data = await res.text();
-    if(res.ok) setStatus("Server is ready", "ready");
+    if(res.ok) {
+      setStatus("Server is ready", "ready");
+      body.style.pointerEvents = "all";
+    }
     else setStatus("Failed to wake up server", "loading");
   } catch(error){
     setStatus("Failed to wake up server", "loading");

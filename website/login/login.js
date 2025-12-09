@@ -35,15 +35,15 @@ async function login(username, password) {
             body: JSON.stringify({
                 username: username,
                 password: password
-            })
+            }),
+            credentials: "include"
         });
     
-        const data = await res.json();
+        const json = await res.json();
         finishProgressBar();
 
         if (res.status === 200) {
-            localStorage.setItem("accessToken", data.accessToken);
-            localStorage.setItem("refreshToken", data.refreshToken);
+            localStorage.setItem("accessToken", json.data.accessToken);
             localStorage.setItem("username", username);
             getProfile(account_api, localStorage.getItem("accessToken"));
             window.location.href = "../home/home.html";
@@ -58,7 +58,7 @@ async function login(username, password) {
             alert("Null username or password");
         } 
         else if(res.status === 401){
-            alert(data.error + ": " + data.message);
+            alert(json.error + ": " + json.message);
         }
         else {
             alert("Login failed due to unknown error");

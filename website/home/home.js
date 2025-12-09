@@ -1,8 +1,8 @@
-import { account_api, exchange_class_create_api, exchange_class_get_by_classCode_api, server_url } from "../../utils/apiconfig.js";
+import { account_api, exchange_class_create_api, exchange_class_get_by_classCode_api} from "../../utils/apiconfig.js";
+import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
-import { getNewAccessToken } from "../../utils/getNewAccessToken.js";
 import { getProfile } from "../../utils/getProfile.js";
-import { isTokenExpired } from "../../utils/isTokenExpired.js";
+import { callLogout } from "../../utils/logout.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
@@ -10,12 +10,12 @@ import { wakeupServer } from "../../utils/wakeupServer.js";
 
 const avatarBtn = document.getElementById("dropdownAvatar");
 const dropdownMenu = document.getElementById("dropdownMenu");
-const member_welcome = document.getElementById("member_welcome");
-const logout = document.getElementById("logout");
-const profile = document.getElementById("profile");
-const addClassandSlotBtn = document.getElementById("addClassAndSlot");
+export const member_welcome = document.getElementById("member_welcome");
+export const logout = document.getElementById("logout");
+export const profile = document.getElementById("profile");
+export const addClassandSlotBtn = document.getElementById("addClassAndSlot");
 
-const tableBody = document.getElementById("results_table_body");
+export const tableBody = document.getElementById("results_table_body");
 const prevBtn = document.getElementById("prev_page_btn");
 const nextBtn = document.getElementById("next_page_btn");
 const pageInfo = document.getElementById("page_info");
@@ -28,13 +28,13 @@ const exchangeInput = document.getElementById("Exchange");
 const username = document.getElementById("username");
 const studentCode = document.getElementById("id");
 const classCode = document.getElementById("Menu_current_class");
-let token = localStorage.getItem("accessToken");
+export let token = localStorage.getItem("accessToken");
 const requestAdd = document.getElementById("requestAdd");
 let currentPage = 1;
 let totalPages = 1;
 const limit = 10; // Số lượng mục trên mỗi trang
 const now = new Date();
-const hour = now.getHours();
+export const hour = now.getHours();
 
 document.getElementById("Add").onclick = function openMenu() {
   document.getElementById("addMenu").style.display = "block";
@@ -59,75 +59,94 @@ document.addEventListener("click", (e) => {
 });
 
 
-window.onload = async() => {
+window.onload = async () => {
   await wakeupServer();
 
-  const expried = isTokenExpired(token);
-  const refreshToken = localStorage.getItem("refreshToken");
-  if(expried && refreshToken){
-    console.log("Access token expired. Getting a new one...");
-    await getNewAccessToken(refreshToken);
-    token = localStorage.getItem("accessToken");
-  }
-  tableBody.innerHTML = window.innerWidth < 775?
-      '<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">Type in class to find request.</td></tr>':'<tr><td colspan="5" style="text-align:center;">Type in class to find request</td></tr>';
-  if(!token){
-    member_welcome.textContent = "Welcome, please log in first!";
-    unloadProfile();
-    addClassandSlotBtn.style.display = "none";
-    addClassandSlotBtn.style.pointerEvents = "none";
-    unloadAvatar(false);
-    profile.style.display = "none";
-    logout.style.display = "none";
-  }
-  else{
-    profile.style.display = "block";
-    logout.style.display = "block";
-    await getProfile(account_api, token);
-    userAvatar(false);
-    const username = localStorage.getItem("username");
-    if(username){
-      let greeting = "";
-      if (hour >= 0 && hour <= 4)
-        greeting = "Good Night";
-      else if (hour >= 5 && hour <= 10)
-        greeting = "Have a nice day";
-      else if (hour >= 11 && hour <= 12)
-        greeting = "Have a nice day";
-      else if (hour >= 13 && hour <= 18)
-        greeting = "Good Afternoon";
-      else if (hour >= 19 && hour <= 21)
-        greeting = "Good Evening";
-      else
-        greeting = "Good Night";
+  const profileResponse = await getProfile(account_api);
 
-      member_welcome.innerHTML = `${greeting}, <span id="usernameGreeting" class="usernameGreeting">${username}</span>!`
-    }
+  tableBody.innerHTML =
+    window.innerWidth < 775
+      ? `<tr><td colspan="5" style="text-align:center; padding-left:20%; white-space: nowrap">
+            Type in class to find request.
+         </td></tr>`
+      : `<tr><td colspan="5" style="text-align:center;">
+            Type in class to find request
+         </td></tr>`;
 
-    if(localStorage.getItem("role") === "ADMIN"){
-      addClassandSlotBtn.style.display = "block";
-      addClassandSlotBtn.style.pointerEvents = "all";
-    }
-    else{
-      addClassandSlotBtn.style.display = "none";
-      addClassandSlotBtn.style.pointerEvents = "none";
-    }
+  if (!token || profileResponse.status === 401 || !profileResponse.data) {
+    handleLoggedOutState();
+    return;
   }
+
+  handleLoggedInState();
 };
 
+//====================UI FUNCTIONS=============================
 
+function handleLoggedOutState() {
+  member_welcome.textContent = "Welcome, please log in first!";
+  unloadProfile();
+  unloadAvatar(false);
 
-logout.addEventListener("click", () => {
-  alert("Logout Successfully");
   profile.style.display = "none";
   logout.style.display = "none";
-  unloadProfile();
-  localStorage.removeItem("refreshToken");
+
   addClassandSlotBtn.style.display = "none";
   addClassandSlotBtn.style.pointerEvents = "none";
-  unloadAvatar(false);
+}
+
+function handleLoggedInState() {
+  profile.style.display = "block";
+  logout.style.display = "block";
+
+  userAvatar(false);
+
+  const username = localStorage.getItem("username");
+  if (username) {
+    member_welcome.innerHTML = `${getGreeting()}, 
+      <span id="usernameGreeting" class="usernameGreeting">${username}</span>!`;
+  }
+
+  const isAdmin = localStorage.getItem("role") === "ADMIN";
+  addClassandSlotBtn.style.display = isAdmin ? "block" : "none";
+  addClassandSlotBtn.style.pointerEvents = isAdmin ? "all" : "none";
+}
+
+function getGreeting() {
+  if (hour <= 4) return "Good Night";
+  if (hour <= 10) return "Have a nice day";
+  if (hour <= 12) return "Have a nice day";
+  if (hour <= 18) return "Good Afternoon";
+  if (hour <= 21) return "Good Evening";
+  return "Good Night";
+}
+
+//===================LOGOUT===============================
+
+logout.addEventListener("click", async () => {
+  const isLogout = await callLogout();
+
+  if (!isLogout) {
+    alert("Cannot logout due to server");
+    return;
+  }
+
+  alert("Logout Successfully");
+  performLogoutUI();
   window.location.href = "../home/home.html";
 });
+
+function performLogoutUI() {
+  unloadProfile();
+  unloadAvatar(false);
+
+  profile.style.display = "none";
+  logout.style.display = "none";
+
+  addClassandSlotBtn.style.display = "none";
+  addClassandSlotBtn.style.pointerEvents = "none";
+}
+
 
 //ADMIN PRIVILEGE
 addClassandSlotBtn.addEventListener("click", () => {
@@ -188,12 +207,8 @@ slotMode.addEventListener("click", () => {
 async function addRequest(studentCode, desiredClassCode) {
   startProgressBar();
   try{
-    const res = await fetch(exchange_class_create_api, {
+    const res = await fetchWithAuth(exchange_class_create_api, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
       body: JSON.stringify({studentCode, desiredClassCode})
     })
 
@@ -202,11 +217,8 @@ async function addRequest(studentCode, desiredClassCode) {
     if(res.status === 201){
       alert("Add request successfully");
     }
-    else if(res.status === 409 || res.status === 500 || res.status === 404 || res.status === 400 ){
+    else{
       alert(data.error + ": " + data.message);
-    }
-    else if(res.status === 401){
-      alert("Session expired, please log in again.");
     }
   }
   catch(err){
@@ -239,28 +251,14 @@ async function fetchExchangeData(classCode, page) {
   startProgressBar();
 
   try {
-    const response = await fetch(exchange_class_get_by_classCode_api(classCode,page), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-    });
+    const response = await fetchWithAuth(exchange_class_get_by_classCode_api(classCode,page))
     
     const data = await response.json();
     finishProgressBar();
     if (!response.ok) {
       tableBody.innerHTML =
-       `<tr><td colspan="5" style="text-align:center;">${data.error || "Error"}: ${data.message || "Unknown error"}</td></tr>`;
+       `<tr><td colspan="5" style="text-align:center;">${data.error}: ${data.message}</td></tr>`;
       return null;
-    }
-    if(response.status === 404){
-      tableBody.innerHTML =
-        `<tr><td colspan="5" style="text-align:center;">${data.error}: ${data.message}</td></tr>`;
-    }
-    else if(response.status === 401){
-      tableBody.innerHTML =
-        `<tr><td colspan="5" style="text-align:center;">Session failed. Please log in again</td></tr>`;
     }
     return data;
   } catch (error) {
@@ -307,25 +305,14 @@ function displayData(data) {
 /**
  * Cập nhật trạng thái của các nút điều khiển pagination
  */
-function updatePaginationControls() {
-  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+function updatePaginationControls(dataArrayLength) {
+  pageInfo.textContent = `Page ${currentPage}`;
   prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.disabled = dataArrayLength < 10;
 }
 
-// async function loadPage(classCode, page) {
-//   const backendPage = page - 1;
-//   const responseData = await fetchExchangeData(classCode, backendPage);
-
-//   if (responseData && responseData.data) {
-//     currentPage = page;
-//     totalPages = responseData.pagination.totalPages;
-
-//     displayData(responseData.data);
-//     updatePaginationControls();
-//   }
-// }
 async function loadPage(classCode, page) {
+  let dataArrayLength = 0;
   const backendPage = page - 1;
   const responseData = await fetchExchangeData(classCode, backendPage);
 
@@ -333,7 +320,7 @@ async function loadPage(classCode, page) {
 
   if (responseData && responseData.data) {
     currentPage = page;
-    totalPages = responseData.pagination?.totalPages || 1; // tránh undefined
+    dataArrayLength = JSON.parse(responseData.data).length;
     displayData(responseData.data);
   } else {
     tableBody.innerHTML =
@@ -341,7 +328,7 @@ async function loadPage(classCode, page) {
     totalPages = 1;
   }
 
-  updatePaginationControls();
+  updatePaginationControls(dataArrayLength);
 }
 
 

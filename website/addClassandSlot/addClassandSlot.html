@@ -8,8 +8,34 @@
     <link rel = "stylesheet" href = "../../assets/css/all.min.css">
 </head>
 <body>
-    
+    <div id = "form_container">
+        <form>
+            <h2>Add New Class</h2>
+            <div class = "form_row">
+                <p>New class:</p>
+                <input type = "text" id = "newClass" placeholder="Input a new class">
+            </div>
+            <div class = "form_row">
+                <p>Slot for the class:</p>
+                <input type = "text" id = "newSlot" placeholder="E.g: 1,2 ; 3,4 ;...">
+            </div>
+            <button type = "button" id = "addClassBtn">Add</button>
+        </form>
 
+        <form>
+            <h2>Change a Class</h2>
+            <div class = "form_row">
+                <p>Input a class:</p>
+                <input type = "text" id = "changeClass" placeholder="E.g: SE2003, GD2005,...">
+            </div>
+            <div class = "form_row">
+                <p>Change to which slots?</p>
+                <input type = "text" id = "changeSlot" placeholder="E.g: 1,2 ; 3,4 ;...">
+            </div>
+            <button type = "button" id = "adjustClassBtn">Adjust</button>
+        </form>
+    </div>
+    <div id="adminOnlyMsg">Please log in as ADMIN</div>
     <script src = "addClassandSlot.js" type = "module"></script>
 </body>
 </html>
