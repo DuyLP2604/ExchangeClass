@@ -7,7 +7,6 @@ import { startProgressBar } from "../../utils/startProgressBar.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
 import { wakeupServer } from "../../utils/wakeupServer.js";
-import { tableBody, token, member_welcome, profile, logout, addClassandSlotBtn, hour } from "../home/home.js";
 
 const avatarBtn = document.getElementById("dropdownAvatar");
 const dropdownMenu = document.getElementById("dropdownMenu");
