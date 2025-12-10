@@ -85,4 +85,4 @@ nextBtn.addEventListener("click", () => {
 
 loadClassList(1);
 const savedTheme = localStorage.getItem("theme") || "light";
-document.body.setAttribute("data-theme", savedTheme);
+document.body.getAttribute("data-theme", savedTheme);
