@@ -222,7 +222,8 @@ async function addRequest(studentCode, desiredClassCode) {
   }
   catch(err){
     console.error(err);
-    alert("Server is starting up...");
+    alert("Redirect to log in");
+    finishProgressBar();
   }
 }
 
@@ -319,7 +320,7 @@ async function loadPage(classCode, page) {
 
   if (responseData && responseData.data) {
     currentPage = page;
-    dataArrayLength = JSON.parse(responseData.data).length;
+    dataArrayLength = responseData.data.length;
     displayData(responseData.data);
   } else {
     tableBody.innerHTML =
@@ -327,7 +328,7 @@ async function loadPage(classCode, page) {
     totalPages = 1;
   }
 
-  updatePaginationControls();
+  updatePaginationControls(dataArrayLength);
 }
 
 

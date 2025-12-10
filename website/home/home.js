@@ -223,7 +223,8 @@ async function addRequest(studentCode, desiredClassCode) {
   }
   catch(err){
     console.error(err);
-    alert("Server is starting up...");
+    alert("Redirect to log in page");
+    finishProgressBar();
   }
 }
 
@@ -316,11 +317,11 @@ async function loadPage(classCode, page) {
   const backendPage = page - 1;
   const responseData = await fetchExchangeData(classCode, backendPage);
 
-  console.log("Response from API:", responseData); // debug log
+  console.log("Response from API:", responseData); 
 
   if (responseData && responseData.data) {
     currentPage = page;
-    dataArrayLength = JSON.parse(responseData.data).length;
+    dataArrayLength = responseData.data.length;
     displayData(responseData.data);
   } else {
     tableBody.innerHTML =
