@@ -159,46 +159,157 @@ success response
     }
 
 
-PATCH /auth/reset_password
+POST /auth/forget_password
 
-description : đổi mật khẩu 
+description : yêu cầu gửi OTP reset mật khẩu về email
 
 URL Params: None
 
 Data Params:
 
     {
-        newPassword: String,
+        usernameOrEmail: String
     }
 
-Headers:Content-Type: application/json
+Headers: Content-Type: application/json
 
-success response 
-    
+success response :
+
+    httpStatus: 200
     {
-    Http code: 200,
-    message: "reset successfully"
+        "processSuccess": true,
+        "data": "no data",
+        "error": "no error",
+        "message": "send otp to email: {email}, please check your email:",
     }
 
-error response 
+error response:
 
-    có giá trị là null thì vẫn thông báo như ở trên
-    
-    Http code 401 
-    khi mật khẩu không hợp lệ
+    khi email null hoặc không đúng format
+
+    httpStatus: 400
     {
         "processSuccess": false,
         "data": "no data",
-        "error": "invalid password",
+        "error": "null or invalid email",
+        "message": "send otp failed",
+    }
+
+    khi không tìm thấy account với email này
+
+    httpStatus: 404
+    {
+        "processSuccess": false,
+        "data": "no data",
+        "error": "no existed account with this email",
+        "message": "send otp failed",
+    }
+
+POST /auth/verify_otp
+
+description : xác thực OTP để lấy reset token
+
+URL Params: None
+
+Data Params:
+
+    {
+        email: String,  // email đã gửi otp để tìm đúng otp để xác thực
+        otp: String    // 6 chữ số
+    }
+
+Headers: Content-Type: application/json
+
+success response :
+
+    httpStatus: 200
+    {
+        "processSuccess": true,
+        "data": {
+            "email": "string",
+            "resetToken": "string"
+        },
+        "error": "no error",
+        "message": "validate otp successfully",
+    }
+
+error response:
+
+    khi email hoặc otp null
+
+    httpStatus: 400
+    {
+        "processSuccess": false,
+        "data": "no data",
+        "error": "null email or otp",
+        "message": "verify otp failed",
+    }
+
+    khi otp sai hoặc đã hết hạn
+
+    httpStatus: 401
+    {
+        "processSuccess": false,
+        "data": "no data",
+        "error": "invalid or expired OTP",
+        "message": "verify otp failed",
+    }
+
+POST /auth/reset_password
+
+description : reset mật khẩu bằng reset token (quên mật khẩu)
+
+URL Params: None
+
+Data Params:
+
+    {
+        email: String,
+        resetToken: String,
+        newPassword: String
+    }
+
+Headers: Content-Type: application/json
+
+success response :
+
+    httpStatus: 200
+    {
+        "processSuccess": true,
+        "data": "no data",
+        "error": "no error",
+        "message": "reset successfully",
+    }
+
+error response:
+
+    khi có field null
+
+    httpStatus: 400
+    {
+        "processSuccess": false,
+        "data": "no data",
+        "error": "null email, reset token or new password",
         "message": "reset failed",
     }
 
-    khi không tìm thấy tài khoản
-    Http code 404
+    khi reset token sai hoặc hết hạn
+
+    httpStatus: 401
     {
         "processSuccess": false,
         "data": "no data",
-        "error": "no existed account",
+        "error": "invalid or expired reset token",
+        "message": "reset failed",
+    }
+
+    khi không tìm thấy account với email
+
+    httpStatus: 404
+    {
+        "processSuccess": false,
+        "data": "no data",
+        "error": "no existed account with this email",
         "message": "reset failed",
     }
 
@@ -228,11 +339,11 @@ success response
 error response
 
     Http code: 401
-    khi refresh token không hợp lệ hoặc access token chưa hết hạn
+    khi refresh token không hợp lệ 
     Content:
     {
         "processSuccess": false,
-        "message": "invalid refresh token or access token haven't expired",
+        "message": "invalid refresh token",
         "error": "UNAUTHORIZED",
         "data": "no data"
     }
@@ -250,6 +361,8 @@ Account object
         accountName: String
         studentCode: String
         classCode: String
+        role: String (ADMIN or USER)
+        email: String(must be in format of email)
     }
 
 Patch /account
@@ -784,8 +897,8 @@ none
 Data Param:
 
     {
-    "classCode": "string",
-    "slot": "string"
+        "classCode": "string",
+        "slot": "string"
     }
     Lưu ý:
     - 1 trong 2 field có thể null nhưng cả 2 không được null.

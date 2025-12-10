@@ -4,7 +4,6 @@ export async function getNewAccessToken() {
     try {
         const res = await fetch(get_new_access_token_url, {
             method: "POST",
-            credentials: "include", 
             headers: {
                 "Content-Type": "application/json"
             }
