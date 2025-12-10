@@ -779,7 +779,8 @@ body[data-theme="dark"] .dropdown a{
   color: white;
 }
 
-body[data-theme="dark"] .dropdown a:hover{
+body[data-theme="dark"] .dropdown a:hover,
+body[data-theme="dark"] .dropdown #addClassAndSlot:hover{
   background-color: #414141;
 }
 body[data-theme="dark"] #toggleMode{
