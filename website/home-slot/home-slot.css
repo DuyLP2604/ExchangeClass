@@ -408,7 +408,7 @@ input[type="checkbox"] {
   text-align: left;
   background: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: background 0.15s ease, padding-left 0.15s ease;
 }
 
 .dropdown button:hover {

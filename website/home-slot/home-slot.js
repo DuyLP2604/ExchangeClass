@@ -98,8 +98,7 @@ function handleLoggedOutState() {
 
 function handleLoggedInState() {
   profile.style.display = "flex";
-  profile.style.gap = "12px";
-  logout.style.display = "block";
+  logout.style.display = "flex";
 
   userAvatar(false);
 
