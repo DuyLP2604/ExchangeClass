@@ -110,7 +110,7 @@ function handleLoggedInState() {
   }
 
   const isAdmin = localStorage.getItem("role") === "ADMIN";
-  addClassandSlotBtn.style.display = isAdmin ? "block" : "none";
+  addClassandSlotBtn.style.display = isAdmin ? "flex" : "none";
   addClassandSlotBtn.style.pointerEvents = isAdmin ? "all" : "none";
 }
 
@@ -173,10 +173,6 @@ themeBtn.addEventListener("click", () => {
   updateThemeIcon(nextTheme);
 })
 
-//ADMIN PRIVILEGE
-addClassandSlotBtn.addEventListener("click", () => {
-  window.location.href = "../addClassandSlot/addClassandSlot.html"
-})
 
 //CHANGE DISPLAY TEXT CONTENT
 function updateText(){

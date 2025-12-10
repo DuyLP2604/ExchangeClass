@@ -197,24 +197,7 @@ body {
   box-shadow: 0 6px 14px rgba(120, 180, 255, 0.6);
   transform: translateY(-2px);
 }
-#member #addClassAndSlot{
-  position: absolute;
-  right: 100px;
-  padding: 8px 15px;
-  width: 160px;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #0066ff, #6600ff, #ff00cc);
-  border: none;
-  box-shadow: 0 0 15px #6600ff;
-  transition: all 0.3s ease;
-  display: none;
-}
 
-#member #addClassAndSlot:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 4px 19px #6600ff;
-}
 #confirm{
   display: block;
   margin-left: 25px;
@@ -415,7 +398,24 @@ input[type="checkbox"] {
   padding-left: 14px;
   background-color: rgb(255, 153, 153);
 }
+.dropdown #addClassAndSlot{
+  color: transparent;
+  background-clip: text;
+  background: linear-gradient(135deg, #0066ff, #6600ff, #ff00cc);
+  border: none;
+  box-shadow: 0 0 15px #6600ff;
+  display: flex;
+  align-items: center;
+  gap:12px;
+  padding: 10px;
+  font-size: 18px;
+  transition: background 0.15s ease, padding-left 0.15s ease;
+}
 
+.dropdown #addClassAndSlot:hover{
+  background: #e5e7ec;
+  padding-left: 14px;
+}
 #results_table_header{
   display: grid;
   grid-template-columns: 88% 6% 6%;
