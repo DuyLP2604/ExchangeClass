@@ -98,7 +98,7 @@ function handleLoggedOutState() {
 }
 
 function handleLoggedInState() {
-  profile.style.display = "block";
+  profile.style.display = "flex";
   logout.style.display = "block";
 
   userAvatar(false);
@@ -153,7 +153,7 @@ function performLogoutUI() {
 function updateThemeIcon(theme){
   const icon = themeBtn.querySelector("i");
   if(theme === "dark"){
-    icon.classname = "fa-solid fa-moon";
+    icon.className = "fa-solid fa-moon";
   }
   else {
     icon.className = "fa-solid fa-cloud-sun";
@@ -168,7 +168,7 @@ themeBtn.addEventListener("click", () => {
   const currentTheme = document.body.getAttribute("data-theme");
   const nextTheme = currentTheme === "light" ? "dark" : "light";
 
-  document.body.getAttribute("data-theme", nextTheme);
+  document.body.setAttribute("data-theme", nextTheme);
   localStorage.setItem("theme", nextTheme);
   updateThemeIcon(nextTheme);
 })
