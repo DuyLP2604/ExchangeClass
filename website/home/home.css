@@ -754,6 +754,13 @@ input[type="checkbox"] {
   .dropdown button{
     font-size: 15px;
   }
+
+  #member #toggleTheme{
+    right: 65px;
+    height: 30px;
+    width: 30px;
+    font-size: 15px;
+  }
 }
 
 

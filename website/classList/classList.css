@@ -147,6 +147,6 @@ body[data-theme="dark"] tbody tr:hover {
   background: rgba(120, 90, 255, 0.18);
 }
 
-table tr:nth-child(even) {
+body[data-theme="dark"]table tr:nth-child(even) {
     background-color: #1d103e; 
 }
