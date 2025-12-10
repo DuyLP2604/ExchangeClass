@@ -31,8 +31,13 @@ export async function fetchWithAuth(url, options = {}) {
     });
 
     if (res.status === 401) {
-        console.log("Unauthorized (token still valid). Force login.");
-        window.location.href = "../login/login.html";
+        if(isTokenExpired(accessToken)){
+            console.log("Unauthorized (token still valid). Force login.");
+            window.location.href = "../login/login.html";
+        }
+        else{
+            console.log("401 but access token still valid → BE says refresh not allowed");
+        }
         return res;
     }
 
