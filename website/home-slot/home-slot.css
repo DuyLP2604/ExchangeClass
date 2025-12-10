@@ -841,3 +841,28 @@ body[data-theme="dark"] #member #toggleTheme:hover{
   transform: translateY(-2px);
 }
 
+body[data-theme="dark"] .Menu_col input[type="text"] {
+  border: 1px solid rgba(200, 180, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+body[data-theme="dark"] .Menu_col input[type="text"]:disabled {
+  background: rgba(128, 128, 128, 0.08);
+  color: rgb(215, 215, 215);
+}
+
+body[data-theme="dark"]  .addStudent #Menu_submit {
+  background: linear-gradient(135deg, #7A5CFF, #3A1C86, #1A0B2E);
+  color: white;
+  box-shadow: 0 0 15px rgba(140, 100, 255, 0.5);
+}
+
+body[data-theme="dark"]  .addStudent #Menu_submit:hover {
+  background: linear-gradient(135deg,
+    #9077FF,   
+    #4A27A4,
+    #241042 
+  );
+  box-shadow: 0 0 20px rgba(170, 140, 255, 0.6);
+}
