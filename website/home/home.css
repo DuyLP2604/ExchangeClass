@@ -184,7 +184,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(232, 232, 232);
+  background-color: rgb(215, 215, 215);
   margin-bottom: 5px;
   position: sticky;
   top: 0px;
@@ -227,6 +227,27 @@ body {
 #member_welcome {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-left: 10px;
+}
+
+#member #toggleTheme{
+  position: absolute;
+  right: 90px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 17px;
+  border: none;
+  background: linear-gradient(135deg, #95cffe, #79C1FF);
+  color: #FFD84D;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(120, 180, 255, 0.5);
+  transition: all 0.25s ease;
+}
+
+#member #toggleTheme:hover {
+  background: linear-gradient(135deg, #a2d9fd, #8AD0FF);
+  box-shadow: 0 6px 14px rgba(120, 180, 255, 0.6);
+  transform: translateY(-2px);
 }
 
 .addStudent {
@@ -338,39 +359,67 @@ input[type="checkbox"] {
 .dropdown {
   display: none;
   position: absolute;
-  right: 0px;
-  background-color: white;
+  right: 0;
+  top: 30px;
+
+  background: rgb(255, 255, 255);
+  width: 150px;
   padding: 10px;
-  border-radius: 7px;
-  top: 25px;
-  border: 3px solid rgb(198, 198, 198);
-  z-index: 10;
-  width: 100px;
+
+  border-radius: 12px;
+  border: 2px solid #e6e6e6;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.15s ease-out;
+  z-index: 20;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown a {
-  display: block;
-  padding: 7px;
-  color: black;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+
   text-decoration: none;
+  transition: background 0.15s ease, padding-left 0.15s ease;
+}
+
+.dropdown a:hover {
+  background: #e5e7ec;
+  padding-left: 14px;
 }
 
 .dropdown button {
   width: 100%;
-  height: 30px;
-  font-size: 15px;
-  border-radius: 4px;
-  border: none;
-  color: white;
-  margin-top: 4px;
-  background: linear-gradient(45deg, #FF416C, #FF4B2B);
+  height: 36px;
+
+  font-size: 18px;
   font-weight: 600;
+  border: none;
+  border-top: 1px solid red;
+  margin-top: 8px;
+
+  color: red;
+
+  background: none;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgb(248, 0, 0);
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.dropdown a:hover {
-  background-color: rgb(204, 204, 204);
+.dropdown button:hover {
+  padding-left: 14px;
+  background-color: rgb(255, 153, 153);
 }
 
 #results_table_header{
@@ -429,7 +478,7 @@ input[type="checkbox"] {
   width: 25%;
 }
 #results_table th {
-  background-color: #f2f2f2;
+  background: #f2f2f2;
   font-weight: bold;
 }
 #results_table td:nth-child(3),
@@ -697,6 +746,17 @@ input[type="checkbox"] {
   #toggleMode .active{
     font-size: 16px;
   }
+
+  .dropdown{
+    width: 120px;
+  }
+  .dropdown a{
+    font-size: 15px;
+  }
+
+  .dropdown button{
+    font-size: 15px;
+  }
 }
 
 
@@ -719,6 +779,66 @@ body[data-theme="dark"] td {
   border-color: #555;
 }
 
-body[data-theme="dark"] #results_table th {
-  background-color: #222;
+
+body[data-theme="dark"] #member{
+  background-color: #1e1e1e;
+}
+
+body[data-theme="dark"] .dropdown a{
+  color: white;
+}
+
+body[data-theme="dark"] .dropdown a:hover{
+  background-color: #414141;
+}
+body[data-theme="dark"] #toggleMode{
+  background: linear-gradient(to top, #3b3b3b, #262626, #1a1a1a) !important;
+  color: white;
+  border-color: #444;
+}
+
+body[data-theme="dark"] #toggleMode .active{
+  background: linear-gradient(to bottom, #3b3b3b, #2a2a2a);
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+body[data-theme="dark"] #toggleMode div:not(.active){
+  color: white;
+  opacity: 0.6;
+  text-shadow: none;
+}
+
+body[data-theme="dark"] #Exchange,
+body[data-theme="dark"] #Exchange_Mobile{
+  background-color: #282828;
+  color: #f0f0f0;
+  border: 2px solid #696969;
+}
+
+body[data-theme="dark"] #results_table th{
+  background: linear-gradient(to bottom, #2c2c2c, #383838);
+  color: #eaeaea;
+}
+
+body[data-theme="dark"] #member #toggleTheme{
+  background: radial-gradient(circle at 30% 25%,
+    #c1c4fc 0%,     
+    #7F8CFF 25%,    
+    #553795 60%,   
+    #0B061C 100%    
+  );
+  color: #FFFDF2;
+  box-shadow: 0 0 12px rgba(70, 85, 243, 0.45);
+}
+
+body[data-theme="dark"] #member #toggleTheme:hover{
+  background: radial-gradient(circle at 32% 23%,
+    #D6D9FF 0%,      
+    #9AA4FF 25%,    
+    #6642B0 60%,     
+    #120A2A 100%  
+  );
+  box-shadow: 0 0 18px rgba(183, 2, 255, 0.6);
+  transform: translateY(-2px);
 }

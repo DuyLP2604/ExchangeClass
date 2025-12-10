@@ -36,6 +36,8 @@ const limit = 10; // Số lượng mục trên mỗi trang
 const now = new Date();
 const hour = now.getHours();
 
+const themeBtn = document.getElementById("toggleTheme");
+
 document.getElementById("Add").onclick = function openMenu() {
   document.getElementById("addMenu").style.display = "block";
   username.value = localStorage.getItem("username");
@@ -145,7 +147,29 @@ function performLogoutUI() {
   addClassandSlotBtn.style.display = "none";
   addClassandSlotBtn.style.pointerEvents = "none";
 }
+//====================TOGGLE THEME=====================
+function updateThemeIcon(theme){
+  const icon = themeBtn.querySelector("i");
+  if(theme === "dark"){
+    icon.classname = "fa-solid fa-moon";
+  }
+  else {
+    icon.className = "fa-solid fa-cloud-sun";
+  }
+}
 
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
+updateThemeIcon(savedTheme);
+
+themeBtn.addEventListener("click", () => {
+  const currentTheme = document.body.getAttribute("data-theme");
+  const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+  document.body.getAttribute("data-theme", nextTheme);
+  localStorage.setItem("theme", nextTheme);
+  updateThemeIcon(nextTheme);
+})
 //ADMIN PRIVILEGE
 addClassandSlotBtn.addEventListener("click", () => {
   window.location.href = "../addClassandSlot/addClassandSlot.html"

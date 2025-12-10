@@ -10,12 +10,12 @@ import { wakeupServer } from "../../utils/wakeupServer.js";
 
 const avatarBtn = document.getElementById("dropdownAvatar");
 const dropdownMenu = document.getElementById("dropdownMenu");
-export const member_welcome = document.getElementById("member_welcome");
-export const logout = document.getElementById("logout");
-export const profile = document.getElementById("profile");
-export const addClassandSlotBtn = document.getElementById("addClassAndSlot");
+const member_welcome = document.getElementById("member_welcome");
+const logout = document.getElementById("logout");
+const profile = document.getElementById("profile");
+const addClassandSlotBtn = document.getElementById("addClassAndSlot");
 
-export const tableBody = document.getElementById("results_table_body");
+const tableBody = document.getElementById("results_table_body");
 const prevBtn = document.getElementById("prev_page_btn");
 const nextBtn = document.getElementById("next_page_btn");
 const pageInfo = document.getElementById("page_info");
@@ -28,13 +28,15 @@ const exchangeInput = document.getElementById("Exchange");
 const username = document.getElementById("username");
 const studentCode = document.getElementById("id");
 const classCode = document.getElementById("Menu_current_class");
-export let token = localStorage.getItem("accessToken");
+let token = localStorage.getItem("accessToken");
 const requestAdd = document.getElementById("requestAdd");
 let currentPage = 1;
 let totalPages = 1;
 const limit = 10; // Số lượng mục trên mỗi trang
 const now = new Date();
-export const hour = now.getHours();
+const hour = now.getHours();
+
+const themeBtn = document.getElementById("toggleTheme");
 
 document.getElementById("Add").onclick = function openMenu() {
   document.getElementById("addMenu").style.display = "block";
@@ -147,6 +149,29 @@ function performLogoutUI() {
   addClassandSlotBtn.style.pointerEvents = "none";
 }
 
+//====================TOGGLE THEME=====================
+function updateThemeIcon(theme){
+  const icon = themeBtn.querySelector("i");
+  if(theme === "dark"){
+    icon.classname = "fa-solid fa-moon";
+  }
+  else {
+    icon.className = "fa-solid fa-cloud-sun";
+  }
+}
+
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
+updateThemeIcon(savedTheme);
+
+themeBtn.addEventListener("click", () => {
+  const currentTheme = document.body.getAttribute("data-theme");
+  const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+  document.body.getAttribute("data-theme", nextTheme);
+  localStorage.setItem("theme", nextTheme);
+  updateThemeIcon(nextTheme);
+})
 
 //ADMIN PRIVILEGE
 addClassandSlotBtn.addEventListener("click", () => {

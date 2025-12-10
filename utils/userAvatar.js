@@ -45,9 +45,17 @@ export function userAvatar(isProfilePage){
 export function unloadAvatar(isProfilePage){
     const ring = document.getElementById("user_ring") || document.querySelector(".user_ring");
     const icon = document.querySelector(".avatar");
-    ring.style.background = "white";
-    ring.style.boxShadow = "none";
-    ring.style.border = "2px solid black";
-    icon.style.color = "black";
+    if(localStorage.getItem("theme") === "dark"){
+        ring.style.background = "#1e1e1e";
+        ring.style.boxShadow = "none";
+        ring.style.border = "2px solid white";
+        icon.style.color = "white";
+    }
+    else{
+        ring.style.background = "white";
+        ring.style.boxShadow = "none";
+        ring.style.border = "2px solid black";
+        icon.style.color = "black";
+    }
     icon.style.fontSize = isProfilePage? "45px" : "22px";
 }

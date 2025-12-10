@@ -106,3 +106,47 @@ table tr:hover {
     background: #005fcc;
 }
 
+body[data-theme="dark"] {
+  background: radial-gradient(circle at 30% 20%,
+    #231a3c 0%,      
+    #180d33 40%,   
+    #0F0A1E 70%,    
+    #05030A 100%   
+  );
+  color: #e2e2f6;
+}
+
+body[data-theme="dark"] #table_container{
+    background: rgba(20, 20, 45, 0.45);
+    box-shadow: 0 0 25px rgba(150, 100, 255, 0.3);
+    border: 1px solid rgba(200, 180, 255, 0.2);
+}
+body[data-theme="dark"] #table_container h2 {
+  color: #e5e5ff;
+  text-shadow: 0 0 8px rgba(170, 150, 255, 0.6);
+}
+body[data-theme="dark"] table {
+  background: rgba(15, 10, 25, 0.55);
+  border:2px solid rgb(100, 6, 209);
+}
+
+body[data-theme="dark"] thead {
+  background: rgba(70, 50, 150, 0.7);
+  color: #eeeaff;
+}
+
+body[data-theme="dark"] table tr{
+    border: 1px solid rgba(51, 32, 125, 0.7);
+}
+
+body[data-theme="dark"] table th,
+body[data-theme="dark"] table td{
+    border: 1px solid rgba(51, 32, 125, 0.7);
+}
+body[data-theme="dark"] tbody tr:hover {
+  background: rgba(120, 90, 255, 0.18);
+}
+
+table tr:nth-child(even) {
+    background-color: #1d103e; 
+}

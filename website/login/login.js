@@ -82,3 +82,6 @@ document.querySelector("form").addEventListener("submit", (e) => {
     }
     login(username, password);
 });
+
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
