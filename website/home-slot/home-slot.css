@@ -399,11 +399,10 @@ input[type="checkbox"] {
   background-color: rgb(255, 153, 153);
 }
 .dropdown #addClassAndSlot{
+  background: linear-gradient(135deg, #0066ff, #6600ff, #ff00cc);
   color: transparent;
   background-clip: text;
-  background: linear-gradient(135deg, #0066ff, #6600ff, #ff00cc);
   border: none;
-  box-shadow: 0 0 15px #6600ff;
   display: flex;
   align-items: center;
   gap:12px;
