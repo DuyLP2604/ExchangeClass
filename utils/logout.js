@@ -1,12 +1,10 @@
 import { logout_url } from "./apiconfig.js";
+import { fetchWithAuth } from "./fetchWithAuth.js";
 
 export async function callLogout() {
     try {
-        const res = await fetch(logout_url, {
+        const res = await fetchWithAuth(logout_url, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
             credentials: "include" 
         });
 
