@@ -26,7 +26,8 @@ export async function fetchWithAuth(url, options = {}) {
     };
 
     const res = await fetch(url, {
-        ...options
+        ...options,
+        credentials: "include"
     });
 
     // if (res.status === 401) {
