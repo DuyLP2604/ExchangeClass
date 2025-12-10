@@ -26,12 +26,13 @@ export async function fetchWithAuth(url, options = {}) {
     };
 
     const res = await fetch(url, {
-        ...options
+        ...options,
+        credentials: "include"
     });
 
     if (res.status === 401) {
         if(isTokenExpired(accessToken)){
-            console.log("Unauthorized (token still valid)");
+            console.log("Unauthorized (token is not valid)");
         }
         else{
             console.log("401 but access token still valid → BE says refresh not allowed");

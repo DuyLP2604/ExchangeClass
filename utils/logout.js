@@ -4,7 +4,8 @@ import { fetchWithAuth } from "./fetchWithAuth.js";
 export async function callLogout() {
     try {
         const res = await fetchWithAuth(logout_url, {
-            method: "POST"
+            method: "POST",
+            credentials: "include"
         });
 
         if (!res.ok) {
