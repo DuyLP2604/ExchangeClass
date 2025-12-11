@@ -1,6 +1,5 @@
 import { account_api, forgot_password_api, verify_otp_api } from "../../utils/apiconfig.js";
 import { getProfile } from "../../utils/getProfile.js";
-import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
 
@@ -136,8 +135,8 @@ function disableResendButton() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            btn.disabled = false;
-            btn.textContent = "Resend OTP";
+            resendOTP.disabled = false;
+            resendOTP.textContent = "Resend OTP";
         }
     }, 1000);
 }
