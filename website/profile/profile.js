@@ -47,7 +47,7 @@ function loadProfile(){
     document.getElementById("accountNameInput").value = localStorage.getItem("accountName");
     newStudentCode.value = localStorage.getItem("studentCode");
     newClassCode.value = localStorage.getItem("classCode");
-    document.getElementById("email").value = localStorage.getItem("email");
+    document.getElementById("emailInput").value = localStorage.getItem("email");
 }
 
 async function getClassRequest(studentCode) {
