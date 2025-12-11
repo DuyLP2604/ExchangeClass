@@ -13,7 +13,7 @@ export async function getProfile(account_api) {
             localStorage.setItem("studentCode", data.studentCode);
             localStorage.setItem("accountName", data.accountName);
             localStorage.setItem("role", data.role);
-            localStorage.getItem("email", data.email);
+            localStorage.setItem("email", data.email);
 
             return { status: res.status, data };
         } else {
