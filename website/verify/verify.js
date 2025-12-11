@@ -57,8 +57,11 @@ emailMode.addEventListener("click", () => {
 //============FORGOT PASSWORD===========
 async function forget_password(usernameOrEmail) {
     try{
-        const res = await fetchWithAuth(forgot_password_api, {
+        const res = await fetch(forgot_password_api, {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({usernameOrEmail})
         })
 
@@ -92,8 +95,11 @@ async function verify_otp(){
     startProgressBar();
     try{
         let otp = getOTP();
-        const res = await fetchWithAuth(verify_otp_api, {
+        const res = await fetch(verify_otp_api, {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({email, otp})
         })
 
