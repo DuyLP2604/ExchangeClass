@@ -149,7 +149,7 @@ window.onload = async () => {
         member_welcome.textContent = "Welcome, please log in first!";
         unloadProfile();
         unloadAvatar(true);
-        document.getElementById("login_required").style.display = "block";
+        document.getElementById("login_required").style.display = "none";
         editBtn.style.opacity = 0;
         editBtn.style.pointerEvents = "none";
         deleteBtn.style.display = "none";

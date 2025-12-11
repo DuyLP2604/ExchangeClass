@@ -456,7 +456,7 @@ body{
   #user {
     top: 60px;
     left: -30px;
-    gap: 55px;
+    gap: 130px;
   }
   #welcome_banner{
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -548,7 +548,7 @@ body{
   #information{
     margin-top: 160px;
     width: 100%;
-    margin-left: 27px;
+    margin-left: 15px;
     gap: 20px;
   }
   .information_row p{
@@ -556,7 +556,7 @@ body{
   }
 
   .information_row input{
-    width: 70%;
+    width: 82%;
     height: 32px;
     padding-left: 10px;
   }

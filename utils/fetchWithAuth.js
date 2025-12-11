@@ -12,7 +12,7 @@ export async function fetchWithAuth(url, options = {}) {
 
         if (!newToken) {
             console.log("Refresh token expired → logout");
-            window.location.href = "../login/login.html";
+            // window.location.href = "../login/login.html";
             unloadProfile();
             return;
         }
