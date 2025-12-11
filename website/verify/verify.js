@@ -51,6 +51,7 @@ emailMode.addEventListener("click", () => {
 })
 //============FORGOT PASSWORD===========
 async function forget_password(usernameOrEmail) {
+    startProgressBar();
     try{
         const res = await fetch(forgot_password_api, {
             method: "POST",
@@ -61,6 +62,7 @@ async function forget_password(usernameOrEmail) {
         })
 
         const data = await res.json();
+        finishProgressBar();
         if(res.ok){
             console.log(data);
             inputs.forEach(input => {
@@ -74,6 +76,7 @@ async function forget_password(usernameOrEmail) {
     }catch(error){
         console.error(error);
         alert("Fail to connect to server");
+        finishProgressBar();
     }
 }
 //=============VERIFY OTP=============
