@@ -1,5 +1,7 @@
 import { login_api, reset_password_api } from "../../utils/apiconfig.js";
 import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
 // TOGGLE PASSWORD
 document.querySelectorAll(".togglePassword").forEach(icon => {
     icon.addEventListener("click", () => {

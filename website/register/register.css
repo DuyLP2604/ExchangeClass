@@ -362,7 +362,7 @@ body[data-theme="dark"] .register_form i {
 body[data-theme="dark"] input[type="text"],
 body[data-theme="dark"] input[type="password"],
 body[data-theme="dark"] input[type="tel"],
-body[data-theme="dark"] input[type="gmail"] {
+body[data-theme="dark"] input[type="email"] {
   border: 1px solid rgba(200, 180, 255, 0.3);
   background: rgba(255, 255, 255, 0.08);
   color: white;

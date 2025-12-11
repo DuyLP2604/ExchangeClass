@@ -140,3 +140,101 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+body[data-theme="dark"] {
+  background: radial-gradient(circle at 30% 20%,
+    #231a3c 0%,      
+    #180d33 40%,   
+    #0F0A1E 70%,    
+    #05030A 100%   
+  );
+  color: #e2e2f6;
+}
+
+body[data-theme="dark"] .card{
+  background: rgba(20, 20, 45, 0.45);
+  box-shadow: 0 0 25px rgba(150, 100, 255, 0.3);
+  border: 1px solid rgba(200, 180, 255, 0.2);
+}
+
+body[data-theme="dark"] .card h2 {
+  color: #e5e5ff;
+  text-shadow: 0 0 8px rgba(170, 150, 255, 0.6);
+}
+
+body[data-theme="dark"] .card i {
+  color: #cfd1ff;
+}
+body[data-theme="dark"] .subtitle{
+    color: #e2e2f6;
+}
+
+body[data-theme="dark"] .toggle-box{
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(200, 180, 255, 0.25);
+    box-shadow: 0 0 15px rgba(150, 100, 255, 0.2);
+}
+body[data-theme="dark"] .toggle-box .toggle-option {
+  color: #cfd1ff;
+}
+
+body[data-theme="dark"] .toggle-box .toggle-option:hover {
+  background: rgba(200, 180, 255, 0.12);
+}
+
+body[data-theme="dark"] .toggle-box .toggle-option.active {
+  background: rgba(150, 100, 255, 0.25);
+  color: #ffffff;
+  box-shadow: inset 0 0 10px rgba(150, 100, 255, 0.5);
+}
+
+body[data-theme="dark"] .input-field{
+  border: 1px solid rgba(200, 180, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+body[data-theme="dark"] .input-field:focus{
+  border-color: #9aa4ff;
+  box-shadow: 0 0 8px rgba(140, 100, 255, 0.6);
+}
+body[data-theme="dark"] .otp-input {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(200, 180, 255, 0.3);
+}
+
+body[data-theme="dark"] .otp-input:focus {
+  border-color: #9aa4ff;
+  box-shadow: 0 0 12px rgba(140, 100, 255, 0.6);
+  background: rgba(255, 255, 255, 0.12);
+}
+body[data-theme="dark"] .primary,
+body[data-theme="dark"] .secondary {
+  background: linear-gradient(135deg, #7A5CFF, #3A1C86, #1A0B2E);
+  color: white;
+  box-shadow: 0 0 15px rgba(140, 100, 255, 0.5);
+}
+
+body[data-theme="dark"] .primary:hover,
+body[data-theme="dark"] .secondary:hover {
+  background: linear-gradient(135deg,
+    #9077FF,   
+    #4A27A4,
+    #241042 
+  );
+  box-shadow: 0 0 20px rgba(170, 140, 255, 0.6);
+}
+
+body[data-theme="dark"] .resend{
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e2f6;
+  border: 1px solid rgba(200, 180, 255, 0.3);
+  box-shadow: 0 0 8px rgba(150, 100, 255, 0.15);
+}
+
+body[data-theme="dark"] .resend-btn:hover {
+  background: rgba(200, 180, 255, 0.15);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(150, 100, 255, 0.4);
+}

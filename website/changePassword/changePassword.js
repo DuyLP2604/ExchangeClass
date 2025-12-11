@@ -2,7 +2,26 @@ import { reset_password_api } from "../../utils/apiconfig.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
 import { getProfile } from "../../utils/getProfile.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
+
+const openPass = document.getElementById("openPass");
+const closePass = document.getElementById("closePass");
+const passwordInput = document.getElementById("password_input");
 const password_typo = document.getElementById("password_typo");
+
+openPass.addEventListener("click", () => {
+    openPass.style.display = "none";
+    closePass.style.display = "block";
+    passwordInput.type = "text";
+});
+
+closePass.addEventListener("click", () => {
+    openPass.style.display = "block";
+    closePass.style.display = "none";
+    passwordInput.type = "password";
+});
+
 async function reset_password_with_OTP() {
     startProgressBar();
     const email = localStorage.getItem("email");

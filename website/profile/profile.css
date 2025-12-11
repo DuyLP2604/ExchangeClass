@@ -498,8 +498,23 @@ body{
     gap: 5px;
     margin-top: 20px;
   }
-  #edit, #resetPasswordButton{
-    margin: 0;
+  #resetPasswordButtonMobile{
+    width: 88%;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    background: linear-gradient(135deg, #8e9efa, #6c63ff);
+    box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
+    transition: all 0.3s ease;
+    border:none;
+    color: white;
+  }
+  #resetPasswordButtonMobile:hover{
+    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(108, 99, 255, 0.5);
   }
   #login_required{
       margin-top: 0px;

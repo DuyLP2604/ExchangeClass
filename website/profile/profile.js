@@ -4,9 +4,9 @@ import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
 import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 
-export let token = localStorage.getItem("accessToken");
-export const member_welcome = document.getElementById("member_welcome");
-export const now = new Date();
+let token = localStorage.getItem("accessToken");
+const member_welcome = document.getElementById("member_welcome");
+const now = new Date();
 
 const newStudentCode = document.getElementById("studentCodeInput");
 const newClassCode = document.getElementById("currentClassInput");
@@ -19,10 +19,15 @@ const deleteSlotCancelBtn = document.getElementById("delete_slot_cancel");
 const deleteSlotConfirmBtn = document.getElementById("delete_slot_confirm");
 const deleteBtnConfirm = document.getElementById("information_delete_request_confirm");
 const deleteSlotBtnConfirm = document.getElementById("information_delete_slot_request_confirm");
-export const tableBody = document.getElementById("results_table_body");
+const editConfirmBtn = document.getElementById("edit_confirm");
+const editCancelBtn = document.getElementById("edit_cancel");
+const usermenu = document.getElementById("user");
+const information_button = document.getElementById("information_button");
+const tableBody = document.getElementById("results_table_body");
 const tableSlotBody = document.getElementById("results_table_slot_body");
-export const editBtn = document.getElementById("edit");
+const editBtn = document.getElementById("edit");
 const resetPasswordBtn = document.getElementById("resetPasswordButton");
+const resetPasswordBtnMobile = document.getElementById("resetPasswordButtonMobile");
 let classRequestFound = false;
 export function formatDate(){
 
@@ -116,9 +121,17 @@ function updateText(){
     const currentClassLabel = document.getElementById("current_class_label");
     const currentSlotLabel = document.getElementById("current_slot_label");
   if(screenWidth <= 775){
+    resetPasswordBtn.style.display = "none";
+    resetPasswordBtn.style.pointerEvents = "none";
+    resetPasswordBtnMobile.style.display = "flex";
+    resetPasswordBtnMobile.style.pointerEvents = "all";
     currentClassLabel.textContent = "Class request";
     currentSlotLabel.textContent = "Slot request";
   }else{
+    resetPasswordBtnMobile.style.display = "none";
+    resetPasswordBtnMobile.style.pointerEvents = "none";
+    resetPasswordBtn.style.display = "flex";
+    resetPasswordBtn.style.pointerEvents = "all";
     currentClassLabel.textContent = "Current class request";
     currentSlotLabel.textContent = "Current slot request";
   }
@@ -143,6 +156,8 @@ window.onload = async () => {
         deleteBtn.style.pointerEvents = "none";
         resetPasswordBtn.style.display = "none";
         resetPasswordBtn.style.pointerEvents = "none";
+        resetPasswordBtnMobile.style.display = "none"
+        resetPasswordBtnMobile.style.pointerEvents = "none";
     }
     else{
         const username = localStorage.getItem("username");
@@ -173,9 +188,14 @@ window.onload = async () => {
     }
 }
 
-document.getElementById("resetPasswordButton").addEventListener("click", () => {
-    window.location.href ="../reset/reset.html";
+resetPasswordBtn.addEventListener("click", () => {
+    window.location.href = "../reset/reset.html";
 })
+
+resetPasswordBtnMobile.addEventListener("click", () => {
+    window.location.href = "../reset/reset.html";
+})
+
 //=========================CHANGE INFORMATION===================
 async function changeInformation(studentCode, classCode){
     editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i> Updating...`;
@@ -210,11 +230,6 @@ async function changeInformation(studentCode, classCode){
         hammer.classList.remove("hitting");
     }
 }
-
-const editConfirmBtn = document.getElementById("edit_confirm");
-const editCancelBtn = document.getElementById("edit_cancel");
-const usermenu = document.getElementById("user");
-const information_button = document.getElementById("information_button");
 
 editBtn.addEventListener("click" , () => {
     newStudentCode.disabled = false;

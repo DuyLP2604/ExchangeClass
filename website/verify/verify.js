@@ -12,6 +12,12 @@ const emailMode = document.getElementById("emailMode");
 const usernameOrEmail = document.getElementById("usernameOrEmail");
 const sendOTP = document.getElementById("sendOTP");
 const resendOTP = document.getElementById("resendOTP");
+
+
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
+
+
 await getProfile(account_api);
 inputs.forEach((input, index) => {
     input.addEventListener("input", (e) => {
@@ -35,6 +41,9 @@ inputs.forEach((input, index) => {
 });
 
 //==========CHANGE AUTOFILL==============
+usernameMode.classList.add("active");
+emailMode.classList.remove("active");
+usernameOrEmail.value = username;
 usernameMode.addEventListener("click", () => {
     usernameMode.classList.add("active");
     emailMode.classList.remove("active");

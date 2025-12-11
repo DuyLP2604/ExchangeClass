@@ -93,7 +93,6 @@ async function register() {
                 classCode,
                 email,
                 role: "USER",
-
             })
         });
         const data = await res.json();
