@@ -456,7 +456,7 @@ body{
   #user {
     top: 60px;
     left: -30px;
-    gap: 130px;
+    gap: 110px;
   }
   #welcome_banner{
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

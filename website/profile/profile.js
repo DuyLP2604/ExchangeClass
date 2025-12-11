@@ -189,11 +189,11 @@ window.onload = async () => {
 }
 
 resetPasswordBtn.addEventListener("click", () => {
-    window.location.href = "../reset/reset.html";
+    window.location.href = "../resetPassword/reset.html";
 })
 
 resetPasswordBtnMobile.addEventListener("click", () => {
-    window.location.href = "../reset/reset.html";
+    window.location.href = "../resetPassword/reset.html";
 })
 
 //=========================CHANGE INFORMATION===================
