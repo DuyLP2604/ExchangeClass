@@ -6,7 +6,7 @@ body{
     align-items: center;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
-    background-color: aliceblue;
+    background: linear-gradient(135deg, #d4e7ff, #f3f8ff);
 }
 
 #form_container{

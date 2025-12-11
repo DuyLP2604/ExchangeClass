@@ -1,6 +1,6 @@
 
 body{
-    background-color: aliceblue;
+    background: linear-gradient(135deg, #d4e7ff, #f3f8ff);
     background-size: cover;
     background-position: center;
     font-family: 'Times New Roman', Times, serif;

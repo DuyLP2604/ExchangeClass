@@ -132,6 +132,12 @@ body{
     box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
     background: linear-gradient(45deg, #ff8787, #ff6b6b);
 }
+#config_button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
 #edit{
     display: flex;
     justify-content: center;
@@ -184,10 +190,12 @@ body{
 #information h2{
   margin: 0px;
 }
-.information_row #resetPasswordButton{
-  width: 90%;
-  height: 37px;
-  margin-top: 56px;
+#resetPasswordButton{
+  display: flex;
+  padding: 10px 18px;
+  margin-top: 20px;
+  gap: 20px;
+  width: auto;
   background: linear-gradient(135deg, #8e9efa, #6c63ff);
   font-weight: 600;
   color: white;
@@ -195,9 +203,10 @@ body{
   border: none;
   box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-.information_row #resetPasswordButton:hover{
+#resetPasswordButton:hover{
   transform: scale(1.05);
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(108, 99, 255, 0.5);
@@ -483,20 +492,21 @@ body{
     font-size: 0.8rem;
     margin: 20px 0px 0px 0px;
   }
-
+  #config_button{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+  }
+  #edit, #resetPasswordButton{
+    margin: 0;
+  }
   #login_required{
       margin-top: 0px;
       margin-left: 0px;
       width: 200px;
       font-size: 13px;
   }
-
-  #edit{
-      padding: 10px 10px;
-      margin-top: 25px;
-      gap:15px;
-  }
-
   #header{
     margin: 0px 20px 0px 25px;
   }
@@ -536,12 +546,6 @@ body{
     padding-left: 10px;
   }
 
-  .information_row #resetPasswordButton{
-    width: 77%;
-    height: 36px;
-    margin-top: 47px;
-    font-size: 14px;
-  }
   #results_table thead{
     display: none;
   }

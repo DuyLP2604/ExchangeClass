@@ -11,6 +11,9 @@ window.onload = async () => {
     await wakeupServer();
 }
 
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
+
 openBtn1.addEventListener("click", () => {
     openBtn1.style.display = "none";
     closeBtn1.style.display = "block";
@@ -72,7 +75,7 @@ async function register() {
     const username = document.getElementById("userName").value.trim();
     const password = document.getElementById("password1").value.trim();
     const phoneNumber = document.getElementById("Zalo").value.trim();
-    // const gmail = document.getElementById("Gmail").value.trim(); // no usage for now
+    const email = document.getElementById("Gmail").value.trim(); 
     const classCode = document.getElementById("classCode").value.trim();
     startProgressBar();
     try {
@@ -88,7 +91,9 @@ async function register() {
                 accountName,
                 studentCode,
                 classCode,
-                role: "USER"
+                email,
+                role: "USER",
+
             })
         });
         const data = await res.json();
@@ -127,17 +132,14 @@ form.addEventListener("submit", (e) => {
     }
     else{
         if(checkPassword(password)){
-            if(password === confirm_password){
-                password_error.innerHTML = '<i class="fa-solid fa-circle-check"></i> <b>Set Password successfully</b>';
-                password_error.style.color = "lime";
-                password_typo.innerHTML ='';
-                register();
-            }
-            else{
+            if(password !== confirm_password){
                 password_error.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <b>Password does not match!</b>';
                 password_error.style.color = "tomato";
                 password_typo.innerHTML ='';
+                return;
             }
+
+            register();
         }
         else{
             password_typo.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <b>Password does not meet requirements</b>';
@@ -146,6 +148,5 @@ form.addEventListener("submit", (e) => {
     }
 });
 
-const savedTheme = localStorage.getItem("theme") || "light";
-document.body.setAttribute("data-theme", savedTheme);
+
 

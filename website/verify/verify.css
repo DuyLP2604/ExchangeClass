@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #b1d9ff, #e7f0ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-direction: column;
+}
+#progress_bar{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 3px;
+    background-image: linear-gradient(to right,  rgb(0, 247, 255), rgb(1, 31, 255));
+    z-index: 10000;
+    transition: all 0.3s ease;
+    width: 0%;
+}
+.card {
+    width: 360px;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #003366;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.toggle-box {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e2e2e2;
+    margin: 15px 0;
+    height: 40px;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.toggle-option {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.25s;
+    font-weight: 600;
+    color: #666;
+}
+
+.toggle-option.active {
+    background: #4a90e2;
+    color: white;
+}
+
+.input-field {
+    width: 90%;
+    padding: 12px 10px 12px 20px;
+    border-radius: 12px;
+    border: 2px solid #cfcfcf;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-field:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74,144,226,0.4);
+}
+
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.otp-input {
+    width: 45px;
+    height: 55px;
+    font-size: 26px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    transition: 0.25s;
+    outline: none;
+    background: white;
+}
+
+.otp-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74,144,226,0.4);
+    transform: scale(1.1);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    transition: 0.25s;
+    font-weight: 600;
+}
+
+.primary { background: #4a90e2; color: white; }
+.primary:hover { background: #3a7acc; }
+
+.secondary { background: #51c27c; color: white; }
+.secondary:hover { background: #45a86a; }
+
+.resend { background: #ff6b6b; color: white; }
+.resend:hover { background: #e25757; }
+
+.button-group {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

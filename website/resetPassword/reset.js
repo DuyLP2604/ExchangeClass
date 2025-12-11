@@ -1,5 +1,5 @@
 import { login_api, reset_password_api } from "../../utils/apiconfig.js";
-import { authFetch } from "../../utils/authFetch.js";
+import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
 // TOGGLE PASSWORD
 document.querySelectorAll(".togglePassword").forEach(icon => {
     icon.addEventListener("click", () => {
@@ -19,7 +19,7 @@ document.querySelectorAll(".togglePassword").forEach(icon => {
 document.getElementById("closeMenu").addEventListener("click", () => {
     window.location.href = "../profile/profile.html";
 })
-// CHECK PASSWORD API
+// CHECK PASSWORD API 
 const authentication = document.getElementById("authentication");
 async function check_password() {
     const username = document.getElementById("userNameInput").value.trim();
@@ -29,13 +29,13 @@ async function check_password() {
         const res = await fetch(login_api, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ username, password: oldPassword })
         });
 
         const data = await res.json();
+        console.log(data);
 
         if (res.status === 200) {
             document.getElementById("newInput").disabled = false;
@@ -58,12 +58,12 @@ async function check_password() {
     }
 }
 
-// RESET PASSWORD API
+//RESET PASSWORD API
 async function reset_password() {
     const newPassword = document.getElementById("confirmNewInput").value.trim();
 
     try {
-        const { status, data } = await authFetch(reset_password_api, {
+        const { status, data } = await fetchWithAuth(reset_password_api, {
             method: "PATCH",
             body: JSON.stringify({ newPassword })
         });
@@ -122,16 +122,13 @@ document.getElementById("form").addEventListener("submit", (e) => {
         password_typo.style.color = "tomato";
     } else {
         if (checkPassword(password)) {
-            if (password === confirm_password) {
-                password_error.innerHTML = '<i class="fa-solid fa-circle-check"></i> <b>Set Password successfully</b>';
-                password_error.style.color = "lime";
-                password_typo.innerHTML = '';
-                reset_password();
-            } else {
+            if (password !== confirm_password) {
                 password_error.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <b>Password does not match!</b>';
                 password_error.style.color = "tomato";
                 password_typo.innerHTML = '';
-            }
+                return;
+            } 
+            reset_password();
         } else {
             password_typo.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <b>Password does not meet requirements</b>';
             password_typo.style.color = "tomato";

@@ -7,6 +7,8 @@ export const register_api = `${base_url}/auth/register`;
 export const login_api = `${base_url}/auth/login`;
 export const reset_password_api = `${base_url}/auth/reset_password`;
 export const account_api = `${base_url}/account`;
+export const forgot_password_api = `${base_url}/auth/forget_password`;
+export const verify_otp_api = `${base_url}/auth/verify_otp`;
 // ================ EXCHANGE ENDPOINT ===============
 export const exchange_class_create_api = `${base_url}/exchange_class`;
 export const exchange_class_delete_api = (id) => `${base_url}/exchange_class/id/${id}`;

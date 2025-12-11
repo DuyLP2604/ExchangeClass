@@ -6,4 +6,5 @@ export function unloadProfile(){
     localStorage.removeItem("studentCode");
     localStorage.removeItem("accountName");
     localStorage.removeItem("role");
+    localStorage.removeItem("email");
 }

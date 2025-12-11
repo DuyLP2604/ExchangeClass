@@ -42,6 +42,7 @@ function loadProfile(){
     document.getElementById("accountNameInput").value = localStorage.getItem("accountName");
     newStudentCode.value = localStorage.getItem("studentCode");
     newClassCode.value = localStorage.getItem("classCode");
+    document.getElementById("email").value = localStorage.getItem("email");
 }
 
 async function getClassRequest(studentCode) {
@@ -172,6 +173,9 @@ window.onload = async () => {
     }
 }
 
+document.getElementById("resetPasswordButton").addEventListener("click", () => {
+    window.location.href ="../reset/reset.html";
+})
 //=========================CHANGE INFORMATION===================
 async function changeInformation(studentCode, classCode){
     editBtn.innerHTML = `<i class="fa-solid fa-hammer"></i> Updating...`;

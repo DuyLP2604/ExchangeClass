@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="verify.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+</head>
+<body>
+    <div id = "progress_bar"></div>
+    <div class="card fadeIn">
+        <h2 class="title">Verify Your Identity</h2>
+        <p class="subtitle">We will send an OTP code to your registered email.</p>
+
+        <div class="toggle-box">
+            <div id="usernameMode" class="toggle-option active">Username</div>
+            <div id="emailMode" class="toggle-option">Email</div>
+        </div>
+
+        <input type="text" id="usernameOrEmail" placeholder="username" disabled class="input-field">
+
+        <button id="confirm_information" class="btn primary">Confirm</button>
+    </div>
+
+    <div class="card fadeIn" id="verifyOTP">
+        <p id="backendAnnounce" class="subtitle">Waiting for confirmation...</p>
+
+        <div class="otp-container">
+            <input type="text" maxlength="1" class="otp-input" disabled>
+            <input type="text" maxlength="1" class="otp-input" disabled>
+            <input type="text" maxlength="1" class="otp-input" disabled>
+            <input type="text" maxlength="1" class="otp-input" disabled>
+            <input type="text" maxlength="1" class="otp-input" disabled>
+            <input type="text" maxlength="1" class="otp-input" disabled>
+        </div>
+
+        <div class="button-group">
+            <button id="sendOTP" class="btn secondary" disabled>Send OTP</button>
+            <button id="resendOTP" class="btn resend" disabled>Resend</button>
+        </div>
+    </div>
+
+    <script type="module" src="verify.js"></script>
+</body>
+</html>

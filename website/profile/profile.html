@@ -35,8 +35,10 @@
                     </a>
                 </div>
             </div>
-
-            <button type = "button" id = "edit" class = "edit"><i class="fa-solid fa-hammer"></i>Edit</button>
+            <div id = "config_button">
+                <button type = "text" id = "resetPasswordButton"><i class="fa-solid fa-key"></i>Change</button>
+                <button type = "button" id = "edit" class = "edit"><i class="fa-solid fa-hammer"></i>Edit</button>
+            </div>
         </div>
 
         <div id = "information">
@@ -59,9 +61,11 @@
                 </div>
 
                 <div class = "information_data">
-                    <a href = "../resetPassword/reset.html"><button type = "text" id = "resetPasswordButton">Reset my password</button></a>
+                    <p>Email</p>
+                    <input type = "text" id = "emailInput" disabled>
                 </div>
             </div>
+            
             <div class="information_row">
                 <h2 id = "current_class_label">Current class request</h2>
                 <button id = "deleteRequest">Delete request</button>
