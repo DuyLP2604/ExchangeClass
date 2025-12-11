@@ -12,12 +12,15 @@ const usernameOrEmail = document.getElementById("usernameOrEmail");
 const sendOTP = document.getElementById("sendOTP");
 const resendOTP = document.getElementById("resendOTP");
 
-
-const savedTheme = localStorage.getItem("theme") || "light";
-document.body.setAttribute("data-theme", savedTheme);
-
-
-await getProfile(account_api);
+window.onload = async () => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.body.setAttribute("data-theme", savedTheme);
+    const profileResponse = await getProfile(account_api);
+    if (!localStorage.getItem("accessToken") || profileResponse.status === 401 || !profileResponse.data){
+        window.location.href = "../login/login.html";
+        return;
+    }
+}
 inputs.forEach((input, index) => {
     input.addEventListener("input", (e) => {
         const value = e.target.value;
@@ -111,7 +114,7 @@ async function verify_otp(){
             finishProgressBar();
         }
         else{
-            alert(data.error + ": " + data.nessage);
+            alert(data.error + ": " + data.message);
             finishProgressBar();
         }
     } catch(error){
