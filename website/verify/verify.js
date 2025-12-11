@@ -141,15 +141,15 @@ function disableResendButton() {
 }
 
 //===============MAIN=========================
-document.getElementById("confirm_information").addEventListener("click", async () => {
+document.getElementById("confirm_information").addEventListener("click", () => {
     forget_password(usernameOrEmail.value);
 })
 
-resendOTP.addEventListener("click", async () => {
+resendOTP.addEventListener("click", () => {
     forget_password(usernameOrEmail.value);
 })
 
-sendOTP.addEventListener("click", async () => {
+sendOTP.addEventListener("click", () => {
     verify_otp();
 })
 
