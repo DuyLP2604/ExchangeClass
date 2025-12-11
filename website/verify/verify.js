@@ -1,11 +1,8 @@
-import { account_api, forgot_password_api, verify_otp_api } from "../../utils/apiconfig.js";
-import { getProfile } from "../../utils/getProfile.js";
+import { forgot_password_api, verify_otp_api } from "../../utils/apiconfig.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
 
 const inputs = document.querySelectorAll(".otp-input");
-const username = localStorage.getItem("username");
-const email = localStorage.getItem("email");
 const usernameMode = document.getElementById("usernameMode");
 const emailMode = document.getElementById("emailMode");
 const usernameOrEmail = document.getElementById("usernameOrEmail");
@@ -15,11 +12,6 @@ const resendOTP = document.getElementById("resendOTP");
 window.onload = async () => {
     const savedTheme = localStorage.getItem("theme") || "light";
     document.body.setAttribute("data-theme", savedTheme);
-    const profileResponse = await getProfile(account_api);
-    if (!localStorage.getItem("accessToken") || profileResponse.status === 401 || !profileResponse.data){
-        window.location.href = "../login/login.html";
-        return;
-    }
 }
 inputs.forEach((input, index) => {
     input.addEventListener("input", (e) => {
@@ -45,16 +37,17 @@ inputs.forEach((input, index) => {
 //==========CHANGE AUTOFILL==============
 usernameMode.classList.add("active");
 emailMode.classList.remove("active");
-usernameOrEmail.value = username;
 usernameMode.addEventListener("click", () => {
     usernameMode.classList.add("active");
     emailMode.classList.remove("active");
-    usernameOrEmail.value = username;
+    usernameOrEmail.type = "text";
+    usernameOrEmail.placeholder = "Username";
 })
 emailMode.addEventListener("click", () => {
     usernameMode.classList.remove("active");
     emailMode.classList.add("active");
-    usernameOrEmail.value = email;
+    usernameOrEmail.type = "email";
+    usernameOrEmail.placeholder = "Email";
 })
 //============FORGOT PASSWORD===========
 async function forget_password(usernameOrEmail) {
@@ -109,6 +102,7 @@ async function verify_otp(){
         const data = await res.json();
         if(res.ok){
             console.log(data);
+            localStorage.setItem("resetEmail", data.email);
             localStorage.setItem("resetToken", data.resetToken);
             window.location.href = "../changePassword/changePassword.html";
             finishProgressBar();

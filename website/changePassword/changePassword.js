@@ -1,6 +1,5 @@
 import { reset_password_api } from "../../utils/apiconfig.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
-import { getProfile } from "../../utils/getProfile.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
 const savedTheme = localStorage.getItem("theme") || "light";
 document.body.setAttribute("data-theme", savedTheme);
@@ -9,6 +8,8 @@ const openPass = document.getElementById("openPass");
 const closePass = document.getElementById("closePass");
 const passwordInput = document.getElementById("password_input");
 const password_typo = document.getElementById("password_typo");
+
+document.getElementById("email").value = localStorage.getItem("resetEmail");
 
 openPass.addEventListener("click", () => {
     openPass.style.display = "none";
@@ -24,7 +25,7 @@ closePass.addEventListener("click", () => {
 
 async function reset_password_with_OTP() {
     startProgressBar();
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("resetEmail");
     const resetToken = localStorage.getItem("resetToken");
     const newPassword = document.getElementById("password_input").value.trim()
     try{
@@ -64,7 +65,6 @@ function checkPassword(password) {
     }
     return false;
 }
-await getProfile();
 document.getElementById("Send").addEventListener("click", () => {
     const password = document.getElementById("password_input").value.trim();
     if (password.length < 8) {

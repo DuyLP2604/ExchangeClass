@@ -29,6 +29,8 @@ const editBtn = document.getElementById("edit");
 const resetPasswordBtn = document.getElementById("resetPasswordButton");
 const resetPasswordBtnMobile = document.getElementById("resetPasswordButtonMobile");
 let classRequestFound = false;
+const savedTheme = localStorage.getItem("theme") || "light";
+document.body.setAttribute("data-theme", savedTheme);
 export function formatDate(){
 
     const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
