@@ -67,6 +67,7 @@ async function forget_password(usernameOrEmail) {
 
         const data = await res.json();
         if(res.ok){
+            console.log(data);
             inputs.forEach(input => {
                 input.disabled = false;
             });
@@ -105,6 +106,7 @@ async function verify_otp(){
 
         const data = await res.json();
         if(res.ok){
+            console.log(data);
             localStorage.setItem("resetToken", data.resetToken);
             window.location.href = "../changePassword/changePassword.html";
             finishProgressBar();
