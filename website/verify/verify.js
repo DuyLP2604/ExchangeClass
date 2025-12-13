@@ -66,7 +66,7 @@ async function forget_password(usernameOrEmail) {
         finishProgressBar();
         if(res.ok){
             console.log(data);
-            email = data.data.email;
+            email = data.data;
             document.getElementById("backendAnnounce").textContent = `We have send an OTP code to email: ${email}, please check the email for the code to verify`;
             inputs.forEach(input => {
                 input.disabled = false;
@@ -75,7 +75,9 @@ async function forget_password(usernameOrEmail) {
             sendOTP.disabled = false;
             disableResendButton();
         }
-        document.getElementById("backendAnnounce").textContent = data.message;
+        else{
+            document.getElementById("backendAnnounce").textContent = data.message;
+        }
     }catch(error){
         console.error(error);
         alert("Fail to connect to server");
