@@ -8,6 +8,7 @@ const emailMode = document.getElementById("emailMode");
 const usernameOrEmail = document.getElementById("usernameOrEmail");
 const sendOTP = document.getElementById("sendOTP");
 const resendOTP = document.getElementById("resendOTP");
+let email;
 
 window.onload = async () => {
     const savedTheme = localStorage.getItem("theme") || "light";
@@ -65,6 +66,8 @@ async function forget_password(usernameOrEmail) {
         finishProgressBar();
         if(res.ok){
             console.log(data);
+            email = data.data.email;
+            document.getElementById("backendAnnounce").textContent = `We have send an OTP code to email: ${email}, please check the email for the code to verify`;
             inputs.forEach(input => {
                 input.disabled = false;
             });
@@ -105,8 +108,8 @@ async function verify_otp(){
         const data = await res.json();
         if(res.ok){
             console.log(data);
-            localStorage.setItem("resetEmail", data.email);
-            localStorage.setItem("resetToken", data.resetToken);
+            localStorage.setItem("resetEmail", data.data.email);
+            localStorage.setItem("resetToken", data.data.resetToken);
             window.location.href = "../changePassword/changePassword.html";
             finishProgressBar();
         }
