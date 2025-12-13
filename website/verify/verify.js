@@ -43,14 +43,14 @@ usernameMode.addEventListener("click", () => {
     emailMode.classList.remove("active");
     usernameOrEmail.type = "text";
     usernameOrEmail.placeholder = "Username";
-    usernameMode.value="";
+    usernameOrEmail.value="";
 })
 emailMode.addEventListener("click", () => {
     usernameMode.classList.remove("active");
     emailMode.classList.add("active");
     usernameOrEmail.type = "email";
     usernameOrEmail.placeholder = "Email";
-    usernameMode.value="";
+    usernameOrEmail.value="";
 })
 //============FORGOT PASSWORD===========
 async function forget_password(usernameOrEmail) {
