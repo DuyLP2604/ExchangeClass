@@ -1,6 +1,8 @@
 import { reset_password_api } from "../../utils/apiconfig.js";
 import { finishProgressBar } from "../../utils/finishProgressBar.js";
+import { callLogout } from "../../utils/logout.js";
 import { startProgressBar } from "../../utils/startProgressBar.js";
+import { unloadProfile } from "../../utils/unloadProfile.js";
 const savedTheme = localStorage.getItem("theme") || "light";
 document.body.setAttribute("data-theme", savedTheme);
 
@@ -44,6 +46,8 @@ async function reset_password_with_OTP() {
             localStorage.removeItem("resetEmail");
             alert("Change password successfully");
             window.location.href = "../login/login.html";
+            await callLogout();
+            unloadProfile();
         }
         else{
             alert(data.error + ": " + data.message);

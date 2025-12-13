@@ -3,6 +3,7 @@ import { getProfile } from "../../utils/getProfile.js";
 import { unloadProfile } from "../../utils/unloadProfile.js";
 import { unloadAvatar, userAvatar } from "../../utils/userAvatar.js";
 import { fetchWithAuth } from "../../utils/fetchWithAuth.js";
+import { callLogout } from "../../utils/logout.js";
 
 let token = localStorage.getItem("accessToken");
 const member_welcome = document.getElementById("member_welcome");
@@ -149,6 +150,7 @@ window.onload = async () => {
     const hour = now.getHours();
     if(!token || profileResponse.status === 401 || !profileResponse.data){
         member_welcome.textContent = "Welcome, please log in first!";
+        await callLogout();
         unloadProfile();
         unloadAvatar(true);
         document.getElementById("login_required").style.display = "block";

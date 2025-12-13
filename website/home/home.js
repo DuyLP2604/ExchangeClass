@@ -85,10 +85,11 @@ window.onload = async () => {
 
 //====================UI FUNCTIONS=============================
 
-function handleLoggedOutState() {
+async function handleLoggedOutState() {
   member_welcome.textContent = "Welcome, please log in first!";
   unloadProfile();
   unloadAvatar(false);
+  await callLogout();
 
   profile.style.display = "none";
   logout.style.display = "none";
