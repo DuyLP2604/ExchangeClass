@@ -1,4 +1,4 @@
-export const base_url = "https://exchange-slot-6a5d90e49e18.herokuapp.com/";
+export const base_url = "https://exchange-slot-6a5d90e49e18.herokuapp.com";
 export const server_url = `${base_url}/hello`;
 export const logout_url = `${base_url}/auth/logout`;
 export const get_new_access_token_url = `${base_url}/auth/refresh_access_token`;
