@@ -45,9 +45,9 @@ async function reset_password_with_OTP() {
             localStorage.removeItem("resetToken");
             localStorage.removeItem("resetEmail");
             alert("Change password successfully");
-            window.location.href = "../login/login.html";
             await callLogout();
             unloadProfile();
+            window.location.href = "../login/login.html";
         }
         else{
             alert(data.error + ": " + data.message);
